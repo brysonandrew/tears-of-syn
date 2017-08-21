@@ -4,13 +4,47 @@
     "tslint-react"
   ],
   "rules": {
+    "prefer-const": false,
+    "variable-name": [false],
+    "no-string-literal": false,
+    "new-parens": false,
+    "jsx-no-lambda": false,
+    "no-empty-interface": false,
+    "no-namespace": [false],
+    "interface-name": [false],
+    "class-name": false,
+    "max-line-length": [false],
+    "object-literal-shorthand": false,
+    "member-access": [false],
+    "no-trailing-whitespace": [false],
+    "arrow-parens": false,
+    "jsx-wrap-multiline": {
+      "when": "ignore"
+    },
+    "jsx-no-multiline-js": {
+      "when": "ignore"
+    },
+    "jsx-curly-spacing": {
+      "when": "ignore"
+    },
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "ignore",
+          "arrays": "ignore",
+          "functions": "ignore",
+          "typeLiterals": "ignore"
+        }
+      }
+    ],
     "indent": [
       true,
       "spaces"
     ],
+    "semicolon": [true, "always", "ignore-interfaces"],
     "quotemark": [
       true,
-      "single",
       "jsx-double"
     ],
     "no-var-requires": false,
