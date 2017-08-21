@@ -46,9 +46,9 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(require('webpack-hot-middleware')(webpackCompiler));
 }
 
-app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public/favicon.png')));
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static('./public/images'));
 
 app.get('*', (req, res) => {
   const location = req.url;
@@ -83,7 +83,7 @@ app.listen(appConfig.port, appConfig.host, (err) => {
   if (err) {
     console.error(Chalk.bgRed(err));
   } else {
-    console.info(Chalk.black.bgGreen(
+    console.info(Chalk.white.bgGreen(
       `\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`,
     ));
   }

@@ -3,7 +3,6 @@ import THREE = require('three');
 export class RandomSparks {
 
     flame = new THREE.Group;
-    initCount = 0;
 
     constructor() {
         this.flame.rotation.y = Math.PI;
@@ -95,7 +94,6 @@ export class RandomSparks {
             fire.position.y += Math.tan(fire["life"]) * Math.random();
             fire.position.z += Math.tan(fire["life"]) * Math.random();
 
-
             if (fire["life"] > maxLife) {
                 this.flame.children.splice(i, 1);
             }
@@ -131,6 +129,6 @@ export class RandomSparks {
     }
 
     render() {
-        return this.flame
+        return this.flame;
     }
 }

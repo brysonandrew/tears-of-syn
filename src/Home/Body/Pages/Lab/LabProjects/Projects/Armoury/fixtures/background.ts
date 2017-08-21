@@ -16,6 +16,6 @@ export const loadBackground = () => {
             mesh.scale.y = -1;
             mesh.position.y += 800;
             resolve(mesh);
-        })
+        });
     });
 };

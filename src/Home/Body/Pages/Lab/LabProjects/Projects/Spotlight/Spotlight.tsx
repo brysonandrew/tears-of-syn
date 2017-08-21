@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as history from 'history';
 import THREE = require('three');
 import { isGL } from "../../../../../../../data/helpers/WebGL";
 import { connect } from 'react-redux';
@@ -7,7 +6,7 @@ import { IParams } from "../../../../../../../data/models";
 import { animateKey, playerPositionX, playerPositionZ, playerRotationY
 } from "../../../../../../../data/helpers/controls/keyboard";
 import { loadGround } from "./fixtures/ground";
-import {IStore} from '../../../../../../../redux/IStore';
+import { IStore } from '../../../../../../../redux/IStore';
 
 interface IProperties {
     width?: number
@@ -25,7 +24,6 @@ interface IProps extends IProperties, ICallbacks {
     keysPressed?: string
     mx?: number
     my?: number
-    history?: history.History
 }
 
 interface IState extends IProperties, ICallbacks {

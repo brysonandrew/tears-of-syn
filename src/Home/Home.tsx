@@ -1,11 +1,12 @@
 import * as React from 'react';
-import * as history from 'history';
 import { connect } from 'react-redux';
 import { IParams } from "../data/models";
 import { IStore } from '../redux/IStore';
 import { changeViewportDimensions, saveParams, toggleScrollAnimation } from './HomeActionCreators';
 import { toParams } from "../data/helpers/toParams";
 import { Pages } from './Body/Pages/Pages';
+import { browserHistory } from 'react-router';
+import createHistory from 'history/createBrowserHistory';
 
 interface IProperties {
     savedParams?: IParams
@@ -26,8 +27,6 @@ interface ICallbacks {
 }
 
 interface IProps extends IProperties, ICallbacks {
-    location: history.Location
-    history: history.History
 }
 
 interface IState extends IProperties, ICallbacks {
@@ -46,13 +45,15 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-        const { onResizeViewport, history, onLocationListen, onLoad } = this.props;
+        const { onResizeViewport, onLocationListen, onLoad } = this.props;
  // reset window pos
         window.scroll(0, 0);
+
+        const history = createHistory();
 // initial save params
         onLoad(toParams(history.location.pathname));
 // listen to future params
-        history.listen( location =>  {
+        browserHistory.listen( location =>  {
 
             onLocationListen(
                 toParams(location.pathname)
@@ -73,10 +74,7 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        const {
-            history,
-            savedParams
-        } = this.props;
+        const { savedParams } = this.props;
         const { isMounted } = this.state;
 
         const styles = {
@@ -94,7 +92,6 @@ export class Home extends React.Component<IProps, IState> {
             <div style={ styles.home }>
                 <Pages
                     savedParams={savedParams}
-                    history={history}
                 />
             </div>
         );

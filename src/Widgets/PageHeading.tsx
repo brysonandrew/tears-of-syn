@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as history from 'history';
+import { browserHistory } from 'react-router';
 import { IParams } from '../data/models';
 import { toParams } from '../data/helpers/toParams';
 
@@ -7,8 +7,8 @@ interface IProps {
     isMobile?: boolean
     isTablet?: boolean
     isLaptop?: boolean
+    savedParams?: IParams
     onPageSelect?: (nextParams: IParams) => void
-    history: history.History
 }
 
 interface IState {}
@@ -20,7 +20,7 @@ export class PageHeading extends React.Component<IProps, IState> {
     }
 
     handleClick(nextPath: string) {
-        this.props.history.push(nextPath);
+        browserHistory.push(nextPath);
     }
 
     static nextPath(pagePath: string, params: IParams): string {
@@ -34,9 +34,8 @@ export class PageHeading extends React.Component<IProps, IState> {
     };
 
     render(): JSX.Element {
-        const { history, isMobile } = this.props;
-        const params: IParams = toParams(history.location.pathname);
-        const pagePath = params.activePagePath ? params.activePagePath : "portfolio";
+        const { isMobile, savedParams } = this.props;
+        const pagePath = savedParams.activePagePath ? savedParams.activePagePath : "portfolio";
         const isPortfolio = !pagePath || pagePath === "portfolio";
         const mobileDisplay = `${!isMobile ? 'inline-' : ''}block`;
 
@@ -73,11 +72,11 @@ export class PageHeading extends React.Component<IProps, IState> {
                 </div>
                 <div style={ styles.pageHeading__options }>
                     <span style={ styles.pageHeading__itemPortfolio }
-                          onClick={() => this.handleClick(PageHeading.nextPath("portfolio", params))}>
+                          onClick={() => this.handleClick(PageHeading.nextPath("portfolio", savedParams))}>
                         PORTFOLIO
                     </span>
                     <span style={ styles.pageHeading__itemLab }
-                          onClick={() => this.handleClick(PageHeading.nextPath("lab", params))}>
+                          onClick={() => this.handleClick(PageHeading.nextPath("lab", savedParams))}>
                         LAB
                     </span>
                 </div>

@@ -4,6 +4,7 @@
     "tslint-react"
   ],
   "rules": {
+    "array-type": false,
     "prefer-const": false,
     "variable-name": [false],
     "no-string-literal": false,

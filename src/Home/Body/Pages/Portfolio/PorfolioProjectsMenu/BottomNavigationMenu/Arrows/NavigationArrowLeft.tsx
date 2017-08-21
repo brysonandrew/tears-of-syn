@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 import { colors } from "../../../../../../../data/themeOptions";
 import { portfolioProjectList } from "../../../../../../../data/content";
 import { IParams } from "../../../../../../../data/models";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface IProps {
     thickness: number
@@ -33,13 +33,13 @@ export class NavigationArrowLeft extends React.Component<IProps, IState> {
     handleMouseEnter() {
         this.setState({
             isHovered: true
-        })
+        });
     }
 
     handleMouseLeave() {
         this.setState({
             isHovered: false
-        })
+        });
     }
 
     findActiveIndex() {
@@ -48,11 +48,11 @@ export class NavigationArrowLeft extends React.Component<IProps, IState> {
         const activeIndex = Immutable.List(portfolioProjectList)
                                      .findIndex(item => item.path === activeProjectPath);
 
-        return (activeIndex > -1) ? activeIndex : 0
+        return (activeIndex > -1) ? activeIndex : 0;
     }
 
     render(): JSX.Element {
-        const { thickness, headRadius, bodyLength, onClick } = this.props;
+        const { thickness, headRadius, bodyLength } = this.props;
         const { isHovered } = this.state;
 
         const activeIndex = this.findActiveIndex();

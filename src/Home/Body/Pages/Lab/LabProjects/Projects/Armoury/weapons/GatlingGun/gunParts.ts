@@ -120,7 +120,7 @@ export const createWholeBarrel = () => {
         );
         wholeBarrel.add(barrel);
     });
-    return wholeBarrel
+    return wholeBarrel;
 };
 
 export const createGun = () => {
@@ -170,5 +170,5 @@ export const createGun = () => {
     const barrel = this.createWholeBarrel();
     gatlingGun.add( barrel );
 
-    return gatlingGun
+    return gatlingGun;
 };

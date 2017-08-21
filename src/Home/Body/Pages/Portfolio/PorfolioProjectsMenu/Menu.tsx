@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IStore } from '../../../../../redux/main_reducer';
 import { MenuFull } from "./MenuFull/MenuFull";
 import { MenuTablet } from "./MenuTablet/MenuTablet";
+import { IStore } from '../../../../../redux/IStore';
 
 interface IProperties {
     isMenuOpen?: boolean
@@ -25,8 +25,6 @@ export class Menu extends React.Component<IProps, IState> {
     public constructor(props?: any, context?: any) {
         super(props, context);
     }
-
-    componentDidMount() {}
 
     render(): JSX.Element {
         const { isMenuOpen, isMobile, isTablet, isLaptop } = this.props;
@@ -64,11 +62,11 @@ function mapStateToProps(state: IStore, ownProps: IProps): IProperties {
         isMobile: state.homeStore.isMobile,
         isTablet: state.homeStore.isTablet,
         isLaptop: state.homeStore.isLaptop
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
-    return {}
+    return {};
 }
 
 export let MenuFromStore = connect(

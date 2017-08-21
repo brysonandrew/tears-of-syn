@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { toggleMenu } from '../../../../HomeActionCreators';
 import { MenuButton } from "./MenuButton";
 import { IParams } from "../../../../../data/models";
-import {IStore} from '../../../../../redux/IStore';
+import { IStore } from '../../../../../redux/IStore';
 
 interface IProperties {
     isMenuOpen?: boolean

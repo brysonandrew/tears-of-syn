@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as history from 'history';
 import THREE = require('three');
 import { isGL } from "../../../../../../../data/helpers/WebGL";
 import { connect } from 'react-redux';
@@ -27,7 +26,6 @@ interface IProps extends IProperties, ICallbacks {
     keysPressed?: string
     mx?: number
     my?: number
-    history: history.History
 }
 
 interface IState extends IProperties, ICallbacks {
@@ -42,7 +40,6 @@ export class Cruising extends React.Component<IProps, IState> {
     animateLoop;
     texture;
     playerFocus = new THREE.Group;
-
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -62,7 +59,7 @@ export class Cruising extends React.Component<IProps, IState> {
     componentWillUnmount() {
         cancelAnimationFrame(this.animateLoop);
         if (isGL()) {
-            this.props.parentEl.removeChild( this.renderer.domElement )
+            this.props.parentEl.removeChild( this.renderer.domElement );
         }
     }
 
@@ -88,7 +85,7 @@ export class Cruising extends React.Component<IProps, IState> {
     }
 
     initGLFallback() {
-        this.setState({ isFallback: true })
+        this.setState({ isFallback: true });
     }
 
     initRenderer() {
@@ -139,11 +136,11 @@ export class Cruising extends React.Component<IProps, IState> {
     renderMotion() {
         const { keysPressed } = this.props;
 
-        this.playerFocus.rotation.y+=playerRotationY(keysPressed);
+        this.playerFocus.rotation.y += playerRotationY(keysPressed);
 
-        this.playerFocus.position.z+=playerPositionZ(keysPressed, this.playerFocus.rotation.y);
+        this.playerFocus.position.z += playerPositionZ(keysPressed, this.playerFocus.rotation.y);
 
-        this.playerFocus.position.x+=playerPositionX(keysPressed, this.playerFocus.rotation.y);
+        this.playerFocus.position.x += playerPositionX(keysPressed, this.playerFocus.rotation.y);
 
         this.renderer.render( this.scene, this.camera );
     }
@@ -193,7 +190,7 @@ function mapStateToProps(state: IStore): IProperties {
 }
 
 function mapDispatchToProps(): ICallbacks {
-    return {}
+    return {};
 }
 
 export const CruisingFromStore = connect(

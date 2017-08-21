@@ -1,12 +1,12 @@
 import * as React from 'react';
-import * as history from 'history';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { ProjectsFromStore } from './PortfolioProjects/Projects';
 import { BottomNavigationMenu } from './PorfolioProjectsMenu/BottomNavigationMenu/BottomNavigationMenu';
 import { IParams } from '../../../../data/models';
 import { toggleScrollAnimation } from '../../../HomeActionCreators';
 import { HeadingFromStore } from './PortfolioProjects/Heading/Heading';
-import {IStore} from '../../../../redux/IStore';
+import { IStore } from '../../../../redux/IStore';
 
 interface IProperties {
     savedParams?: IParams
@@ -24,7 +24,6 @@ interface ICallbacks {
 }
 
 interface IProps extends IProperties, ICallbacks {
-    history: history.History
 }
 
 interface IState extends IProperties, ICallbacks {
@@ -70,7 +69,7 @@ export class Portfolio extends React.Component<IProps, IState> {
     }
 
     handleArrowNavigation(nextPath) {
-        this.props.history.push(nextPath);
+        browserHistory.push(nextPath);
     }
 
     render(): JSX.Element {
@@ -79,7 +78,6 @@ export class Portfolio extends React.Component<IProps, IState> {
             isMobile,
             isTablet,
             isLaptop,
-            history,
             isPreviewExtended
         } = this.props;
 
@@ -108,14 +106,10 @@ export class Portfolio extends React.Component<IProps, IState> {
         return (
             <div>
                 <div style={ styles.portfolio__heading}>
-                    <HeadingFromStore
-                        history={history}
-                    />
+                    <HeadingFromStore/>
                 </div>
                 <div style={ styles.portfolio__projects}>
-                    <ProjectsFromStore
-                        history={history}
-                    />
+                    <ProjectsFromStore/>
                 </div>
                 <div style={ styles.portfolio__bottomNav }>
                     <BottomNavigationMenu
@@ -150,7 +144,7 @@ function mapDispatchToProps(dispatch): ICallbacks {
         onAnimationStart: () => {
             dispatch(toggleScrollAnimation(true));
         }
-    }
+    };
 }
 
 export const PortfolioFromStore = connect(

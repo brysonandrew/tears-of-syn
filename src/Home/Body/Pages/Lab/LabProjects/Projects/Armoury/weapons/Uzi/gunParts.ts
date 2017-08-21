@@ -14,7 +14,6 @@ export const createSingleBarrel = () => {
     return new THREE.Mesh( geometry, material );
 };
 
-
 export const createBody = () => {
     const geometry = new THREE.BoxGeometry( 4, 12, 40 );
     const material = new THREE.MeshPhongMaterial( {
@@ -46,6 +45,5 @@ export const createGun = () => {
     handle.position.set(0, -20, 0);
     gun.add( handle );
 
-
-    return gun
+    return gun;
 };

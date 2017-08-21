@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Word } from './Word';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 interface IState {
     isHovered?: boolean

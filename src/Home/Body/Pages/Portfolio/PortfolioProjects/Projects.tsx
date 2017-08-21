@@ -1,13 +1,12 @@
 import * as React from 'react';
-import * as history from 'history';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { IStore } from '../../../../../redux/main_reducer';
 import { portfolioProjectList } from "../../../../../data/content";
 import { IParams, IDictionary } from "../../../../../data/models";
 import { toggleScrollAnimation, toggleWheel } from '../../../../HomeActionCreators';
-import { toParams} from "../../../../../data/helpers/toParams";
 import { MotionScroll } from "../../../../../Widgets/MotionScroll/MotionScroll";
 import { ProjectFromStore } from "./Project/Project";
+import { IStore } from '../../../../../redux/IStore';
 
 interface IProperties {
     height?: number
@@ -25,9 +24,7 @@ interface ICallbacks {
     onWheelStop?: () => void
 }
 
-interface IProps extends IProperties, ICallbacks {
-    history: history.History
-}
+interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
     docScroll?: number
@@ -37,8 +34,8 @@ interface IState extends IProperties, ICallbacks {
 export class Projects extends React.Component<IProps, IState> {
 
     timeoutId;
-    timeoutStopDelay=50;
-    isWheelRecorded=false;
+    timeoutStopDelay = 50;
+    isWheelRecorded = false;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -73,13 +70,13 @@ export class Projects extends React.Component<IProps, IState> {
     handleWheel() {
         if (!this.isWheelRecorded) {
             this.props.onWheel();
-            this.isWheelRecorded=true;
+            this.isWheelRecorded = true;
         }
-        //detect wheel stop
+        // detect wheel stop
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => {
                 this.props.onWheelStop();
-                this.isWheelRecorded=false;
+                this.isWheelRecorded = false;
             },
         this.timeoutStopDelay);
         if (this.props.isAnimating) {
@@ -99,7 +96,7 @@ export class Projects extends React.Component<IProps, IState> {
 
         if (currentIndex > -1 && portfolioProjectList[currentIndex].path !== savedParams.activeProjectPath) {
             const nextPath = `/portfolio/${portfolioProjectList[currentIndex].path}`;
-            this.props.history.push(nextPath);
+            browserHistory.push(nextPath);
         }
     }
 
@@ -114,9 +111,8 @@ export class Projects extends React.Component<IProps, IState> {
     }
 
     projectOffsetList(): number[] {
-        return portfolioProjectList.map((project, i) => i * this.props.width)
+        return portfolioProjectList.map((project, i) => i * this.props.width);
     };
-
 
     projectOffsets(): IDictionary<number> {
         return this.projectOffsetList().reduce((acc, curr, i) => {
@@ -127,13 +123,11 @@ export class Projects extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { docScroll } = this.state;
-        const { onAnimationEnd, savedParams, isAnimating, width, height, isMobile, isTablet, isLaptop
-            , history } = this.props;
+        const { onAnimationEnd, savedParams, isAnimating, width, height, isMobile, isTablet, isLaptop } = this.props;
 
         const pageProjectPath = !!savedParams.activeProjectPath
                                     ?   savedParams.activeProjectPath
                                     :   portfolioProjectList[0].path;
-
 
         const scrollHeight = width * (portfolioProjectList.length - 1);
         const widthMarginFactor = Projects.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
@@ -177,7 +171,6 @@ export class Projects extends React.Component<IProps, IState> {
                             <ProjectFromStore
                                 index={i}
                                 project={project}
-                                history={history}
                                 previewWidth={adjustedWidth}
                             />
                         </div>)}
@@ -188,7 +181,6 @@ export class Projects extends React.Component<IProps, IState> {
 }
 
 // ------------ redux mappers -------------
-
 
 function mapStateToProps(state: IStore, ownProps: IProps): IProperties {
     return {
@@ -214,7 +206,7 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
         onWheelStop: () => {
             dispatch(toggleWheel(false));
         }
-    }
+    };
 }
 
 export let ProjectsFromStore = connect(

@@ -7,8 +7,6 @@ export class Sedan {
     initialY = 9;
     initialZ = -4;
 
-    constructor() {}
-
     assemble() {
         createCar().then((car) => this.car.add(car));
         this.car.scale.set(0.6, 0.6, 0.6);

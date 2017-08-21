@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as history from 'history';
 import { connect } from 'react-redux';
 import { colors } from "../../../../../../data/themeOptions";
 import { Logo } from "../../../../../../Widgets/Logo/Logo";
@@ -7,7 +6,7 @@ import { HeadingSub } from "../../../../../../Widgets/HeadingSub";
 import { MenuLeft } from "./MenuLeft/MenuLeft";
 import { PageHeading } from '../../../../../../Widgets/PageHeading';
 import { IParams } from '../../../../../../data/models';
-import {IStore} from '../../../../../../redux/IStore';
+import { IStore } from '../../../../../../redux/IStore';
 
 interface IProps {}
 
@@ -26,9 +25,7 @@ interface IProperties {
 
 interface ICallbacks {}
 
-interface IProps extends IProperties, ICallbacks {
-    history: history.History
-}
+interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
     isMounted: boolean
@@ -46,7 +43,7 @@ export class Heading extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-        this.timerId = setTimeout(() =>  this.setState({ isMounted: true }), 0)
+        this.timerId = setTimeout(() =>  this.setState({ isMounted: true }), 0);
     }
 
     componentWillUnmount() {
@@ -55,7 +52,7 @@ export class Heading extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isMounted } = this.state;
-        const { isMobile, isTablet, isLaptop, history } = this.props;
+        const { isMobile, isTablet, isLaptop, savedParams } = this.props;
 
         const styles = {
             heading: {
@@ -108,7 +105,7 @@ export class Heading extends React.Component<IProps, IState> {
                                 isMobile={isMobile}
                                 isTablet={isTablet}
                                 isLaptop={isLaptop}
-                                history={history}
+                                savedParams={savedParams}
                             />
                         </div>
                         <div style={styles.heading__mainLogo}>

@@ -16,12 +16,12 @@ export const easeMotion = (isActive, peak, incRate, currRate) => {
 };
 
 export const linearize = (n, origin, target) => {
-    return origin * (n / 100)  + (target - target * n / 100)
+    return origin * (n / 100)  + (target - target * n / 100);
 };
 
-const spring = .4,
-    friction = .8,
-    easing = .1;
+let spring = .4;
+let friction = .8;
+let easing = .1;
     // vy = 0;
     // sy = 100,
     // dy = 200;

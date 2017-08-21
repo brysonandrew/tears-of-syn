@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { RouteComponentProps } from "react-router-dom";
 
 export interface IDictionary<T> {
     [key: string]: T
@@ -7,7 +6,7 @@ export interface IDictionary<T> {
 
 export interface IPageRoute {
     path: string
-    component?: React.SFC<RouteComponentProps<any> | undefined>
+    component?: JSX.Element
 }
 
 export interface IParams {

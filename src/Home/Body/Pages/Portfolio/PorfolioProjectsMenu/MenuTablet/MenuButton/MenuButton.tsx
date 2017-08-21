@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { colors } from "../../../../../../../data/themeOptions";
-import { IStore } from '../../../../../../../redux/main_reducer';
 import { toggleMenu } from '../../../../../../HomeActionCreators';
+import { IStore } from '../../../../../../../redux/IStore';
 
 interface IProperties {
     isMenuOpen?: boolean
@@ -27,15 +27,15 @@ export class MenuButton extends React.Component<IProps, IState> {
         super(props, context);
         this.state = {
             isHovered: false
-        }
+        };
     }
 
     handleMouseEnter() {
-        this.setState({isHovered: true})
+        this.setState({isHovered: true});
     }
 
     handleMouseLeave() {
-        this.setState({isHovered: false})
+        this.setState({isHovered: false});
     }
 
     handleClick() {
@@ -73,8 +73,8 @@ export class MenuButton extends React.Component<IProps, IState> {
         return (
             <div style={ styles.menuButton }
                  onClick={() => this.handleClick()}
-                 onMouseEnter={()=> this.handleMouseEnter()}
-                 onMouseLeave={()=> this.handleMouseLeave()}>
+                 onMouseEnter={() => this.handleMouseEnter()}
+                 onMouseLeave={() => this.handleMouseLeave()}>
                 <div style={ styles.menuButton__icon }>
                     {Array.apply(null, new Array(this.boxNumber)).map((_, i) =>
                         <div key={i}
@@ -117,7 +117,7 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
         onMenuButtonClick: (isMenuOpen) => {
             dispatch(toggleMenu(isMenuOpen));
         }
-    }
+    };
 }
 
 export const MenuButtonFromStore = connect(

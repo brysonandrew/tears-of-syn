@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as history from 'history';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { IParams } from "../../../../../../data/models";
 import { labProjectList } from '../../../../../../data/content';
 import { IntroContents } from './IntroContents';
@@ -19,7 +19,6 @@ interface IProps extends IProperties, ICallbacks {
     keysPressed?: string
     mx?: number
     my?: number
-    history: history.History
 }
 
 interface IState extends IProperties, ICallbacks {}
@@ -37,7 +36,7 @@ export class Intro extends React.Component<IProps, IState> {
 
             const firstPath = labProjectList[1].path;
 
-            this.props.history.push(`/lab/${firstPath}`);
+            browserHistory.push(`/lab/${firstPath}`);
         }
     }
 
@@ -48,8 +47,7 @@ export class Intro extends React.Component<IProps, IState> {
     }
 
     handleParamsChange(path) {
-        const { history } = this.props;
-        history.push(path);
+        browserHistory.push(path);
     }
 
     render(): JSX.Element {

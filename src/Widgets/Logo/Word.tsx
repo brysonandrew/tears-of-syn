@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Letter} from "./Letter";
+import { Letter } from "./Letter";
 
 interface IProps {
     word: string

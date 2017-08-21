@@ -2,33 +2,33 @@ import {IDictionary} from "../../data/models";
 export type PostStatus = string;
 
 export interface AsyncPost<S, R> {
-    status:PostStatus       // Post status
-    data?:S                  // Data to be sent to the server
-    responseData?:R         // Response data (usually in json format)
-    error?:Object           // Error object returned from server (might include validation errors)
+    status: PostStatus       // Post status
+    data?: S                  // Data to be sent to the server
+    responseData?: R         // Response data (usually in json format)
+    error?: any           // Error object returned from server (might include validation errors)
 }
 
 export class AsyncPostStatus {
-    static NONE:PostStatus = 'NONE';
-    static POSTING:PostStatus = 'POSTING';
-    static POSTED:PostStatus = 'POSTED';
-    static ERROR:PostStatus = 'ERROR';
+    static NONE: PostStatus = 'NONE';
+    static POSTING: PostStatus = 'POSTING';
+    static POSTED: PostStatus = 'POSTED';
+    static ERROR: PostStatus = 'ERROR';
 }
 
 export interface AsyncPostValueCallbacks<T> {
-    none?:() => JSX.Element
-    posting?:() => JSX.Element
-    posted?:(value:T) => JSX.Element
-    error?:(error:Object) => JSX.Element
+    none?: () => JSX.Element
+    posting?: () => JSX.Element
+    posted?: (value: T) => JSX.Element
+    error?: (error: any) => JSX.Element
 }
 
-export module AsyncPost {
+export namespace AsyncPost {
 
     export function init(value) {
         return {
             status: AsyncPostStatus.NONE,
             data: value
-        }
+        };
     }
 
     /**
@@ -36,12 +36,12 @@ export module AsyncPost {
      * @param asyncPostValue    The async post value to render
      * @param callbacks         Callbacks that render the view depending on the async value's status
      */
-    export function render<T>(asyncPostValue:AsyncPost<T, any>, callbacks:AsyncPostValueCallbacks<T>):JSX.Element {
-        if (asyncPostValue.status == AsyncPostStatus.POSTED && callbacks.posted) {
+    export function render<T>(asyncPostValue: AsyncPost<T, any>, callbacks: AsyncPostValueCallbacks<T>): JSX.Element {
+        if (asyncPostValue.status === AsyncPostStatus.POSTED && callbacks.posted) {
             return callbacks.posted(asyncPostValue.data);
-        } else if (asyncPostValue.status == AsyncPostStatus.POSTING && callbacks.posting) {
+        } else if (asyncPostValue.status === AsyncPostStatus.POSTING && callbacks.posting) {
             return callbacks.posting();
-        } else if (asyncPostValue.status == AsyncPostStatus.ERROR && callbacks.error) {
+        } else if (asyncPostValue.status === AsyncPostStatus.ERROR && callbacks.error) {
             return callbacks.error(asyncPostValue.error);
         } else {
             return callbacks.none ? callbacks.none() : null;
@@ -51,7 +51,7 @@ export module AsyncPost {
     /**
      * Helper method that converts the error message to an array of errors
      */
-    export function getArrayOfErrors(errors: IDictionary<string[]> | string) : string[] {
+    export function getArrayOfErrors(errors: IDictionary<string[]> | string): string[] {
         if (typeof errors === 'string') {
             return [errors];
         } else {
@@ -64,12 +64,12 @@ export module AsyncPost {
      * @param asyncPostValue    Existing async post
      * @param data              Data we are posting
      */
-    export function posting<S,R>(asyncPostValue: AsyncPost<S,R>, data: S) : AsyncPost<S,R> {
+    export function posting<S, R>(asyncPostValue: AsyncPost<S, R>, data: S): AsyncPost<S, R> {
         return {
             ...asyncPostValue,
             status: AsyncPostStatus.POSTING,
             data
-        }
+        };
     }
 
     /**
@@ -77,13 +77,13 @@ export module AsyncPost {
      * @param asyncPostValue    Existing async post
      * @param responseData      Data we received from the server
      */
-    export function posted<S,R>(asyncPostValue: AsyncPost<S,R>, responseData: R) : AsyncPost<S,R> {
+    export function posted<S, R>(asyncPostValue: AsyncPost<S, R>, responseData: R): AsyncPost<S, R> {
         // Note: error field is intentionally missing because we want to remove it
         return {
             status: AsyncPostStatus.POSTED,
             data: asyncPostValue.data,
             responseData
-        }
+        };
     }
 
     /**
@@ -92,11 +92,11 @@ export module AsyncPost {
      * @param error
      * @returns {{status: PostStatus, error: Object}}
      */
-    export function error<S,R>(asyncPostValue: AsyncPost<S,R>, error: Object) : AsyncPost<S,R> {
+    export function error<S, R>(asyncPostValue: AsyncPost<S, R>, error: any): AsyncPost<S, R> {
         return {
             ...asyncPostValue,
             status: AsyncPostStatus.ERROR,
             error
-        }
+        };
     }
 }

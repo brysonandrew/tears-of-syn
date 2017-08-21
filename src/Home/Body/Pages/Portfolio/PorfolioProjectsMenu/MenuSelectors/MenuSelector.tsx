@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { colors } from "../../../../../../data/themeOptions";
 import { IPortfolioProject, IParams } from "../../../../../../data/models";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface IProps {
     isMenuOpen: boolean // false is displays only content

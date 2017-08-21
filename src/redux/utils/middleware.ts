@@ -18,10 +18,10 @@ interface IMiddlewareHandler<S> {
  * @param handlers      A set of middleware handlers (action, beforeHandler and afterHandler)
  * @returns The generated middleware function
  */
-export function createMiddleware<S>(handlers: IMiddlewareHandler<S>[]) : any {
-    return (storeAPI : MiddlewareAPI<S>) => next => (action : any = {type: "NONE"}) => {
+export function createMiddleware<S>(handlers: IMiddlewareHandler<S>[]): any {
+    return (storeAPI: MiddlewareAPI<S>) => next => (action: any = {type: "NONE"}) => {
 
-        const actionHandler = Immutable.List(handlers).find(x => x.action.type == action.type);
+        const actionHandler = Immutable.List(handlers).find(x => x.action.type === action.type);
 
         if (actionHandler && actionHandler.beforeHandler) {
             actionHandler.beforeHandler(storeAPI, action);
@@ -34,6 +34,5 @@ export function createMiddleware<S>(handlers: IMiddlewareHandler<S>[]) : any {
         }
 
         return result;
-    }
-
+    };
 }

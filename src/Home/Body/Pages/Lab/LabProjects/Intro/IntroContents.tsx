@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { labProjectList } from '../../../../../../data/content';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { colors } from '../../../../../../data/themeOptions';
 import { fontSize } from '../../../../../../data/helpers/breakPoints';
 

@@ -351,17 +351,17 @@ const k = [
 
 export let findLetter = (letter) => {
     let ltr = letter.toLowerCase();
-           if (ltr==="x") { return x
-    } else if (ltr==="c") { return c
-    } else if (ltr==="o") { return o
-    } else if (ltr==="d") { return d
-    } else if (ltr==="e") { return e
-    } else if (ltr==="b") { return b
-    } else if (ltr==="r") { return r
-    } else if (ltr==="l") { return l
-    } else if (ltr==="g") { return g
-    } else if (ltr==="w") { return w
-    } else if (ltr==="k") { return k
+    if        (ltr === "x") { return x;
+    } else if (ltr === "c") { return c;
+    } else if (ltr === "o") { return o;
+    } else if (ltr === "d") { return d;
+    } else if (ltr === "e") { return e;
+    } else if (ltr === "b") { return b;
+    } else if (ltr === "r") { return r;
+    } else if (ltr === "l") { return l;
+    } else if (ltr === "g") { return g;
+    } else if (ltr === "w") { return w;
+    } else if (ltr === "k") { return k;
     }
-    return []
+    return [];
 };

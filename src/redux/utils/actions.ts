@@ -11,7 +11,7 @@ export interface IAction {
  * @param data      Data
  * @returns {IAction}    The action plain object for dispatching
  */
-export function createAction<T>(type: string, data: T) : IAction {
+export function createAction<T>(type: string, data: T): IAction {
     return Immutable.fromJS(data).set('type', type).toJS();
 }
 

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as history from 'history';
 import THREE = require('three');
 import { isGL } from "../../../../../../../data/helpers/WebGL";
 import { connect } from 'react-redux';
@@ -29,7 +28,6 @@ interface IProps extends IProperties, ICallbacks {
     keysPressed?: string
     mx?: number
     my?: number
-    history: history.History
 }
 
 interface IState extends IProperties, ICallbacks {

@@ -12,5 +12,4 @@ export const loadGround = () => {
         mesh.rotation.x = Math.PI * 1.5;
         resolve(mesh);
     });
-
 };

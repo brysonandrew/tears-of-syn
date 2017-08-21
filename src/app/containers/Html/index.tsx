@@ -1,7 +1,7 @@
-import { IStore } from 'redux/IStore';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import * as serialize from 'serialize-javascript';
+import { IStore } from '../../../redux/IStore';
 
 interface IHtmlProps {
   manifest?: any;
@@ -47,7 +47,7 @@ class Html extends React.Component<IHtmlProps, {}> {
           {head.script.toComponent()}
 
           {renderStyles}
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="shortcut icon" href="/favicon.png" />
         </head>
         <body>
           <main id="app" dangerouslySetInnerHTML={{ __html: markup }} />

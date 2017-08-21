@@ -20,7 +20,7 @@ export class MenuLeftItem extends React.Component<IProps, IState> {
         super(props, context);
         this.state = {
             isHovered: false
-        }
+        };
     }
 
     handleMouseEnter() {

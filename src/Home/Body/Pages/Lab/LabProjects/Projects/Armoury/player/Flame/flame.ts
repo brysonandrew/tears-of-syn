@@ -3,7 +3,6 @@ import THREE = require('three');
 export class Flame {
 
     flame = new THREE.Group;
-    initCount = 0;
     length = 8;
 
     constructor() {
@@ -120,6 +119,6 @@ export class Flame {
     }
 
     renderFire() {
-        return this.flame
+        return this.flame;
     }
 }

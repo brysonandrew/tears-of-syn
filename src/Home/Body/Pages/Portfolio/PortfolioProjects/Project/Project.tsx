@@ -1,15 +1,14 @@
 import * as React from 'react';
-import * as history from 'history';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { IStore } from '../../../../../../redux/main_reducer';
 import { IGrabParams, IParams, IPortfolioProject } from "../../../../../../data/models";
 import { ProjectHeading } from "./Heading/ProjectHeading";
-import { toParams } from "../../../../../../data/helpers/toParams";
 import { togglePreview, toggleScrollAnimation } from "../../../../../HomeActionCreators";
 import { colors } from "../../../../../../data/themeOptions";
 import { Loader } from "../../../../../../Widgets/Loader";
 import { ImageLoader } from "../../../../../../Widgets/ImageLoader";
 import { ProjectLink } from "./Link/ProjectLink";
+import { IStore } from '../../../../../../redux/IStore';
 
 interface IProperties {
     isMenuOpen?: boolean
@@ -30,7 +29,6 @@ interface ICallbacks {
 interface IProps extends IProperties, ICallbacks {
     index: number
     project: IPortfolioProject
-    history: history.History
     previewWidth?: number
     docScroll?: number
     offsetTop?: number
@@ -90,15 +88,15 @@ export class Project extends React.Component<IProps, IState> {
     }
 
     handleClick() {
-        const { project, history, onAnimationStart } = this.props;
+        const { project, onAnimationStart } = this.props;
         const path = `/portfolio/${project.path}`;
-        history.push(path);
+        browserHistory.push(path);
         onAnimationStart();
     }
 
     handleReset() {
 
-        this.setState({ //reset
+        this.setState({ // reset
             isHovered: false,
             isHeadingHovered: false,
             isProjectExtended: false,
@@ -110,7 +108,7 @@ export class Project extends React.Component<IProps, IState> {
     }
 
     handleHeadingClick() {
-        const { project, onAnimationStart, onExtendPreview, history } = this.props;
+        const { project, onAnimationStart, onExtendPreview } = this.props;
         const { isProjectExtended } = this.state;
         if (isProjectExtended) {
             this.handleReset();
@@ -122,14 +120,13 @@ export class Project extends React.Component<IProps, IState> {
             onAnimationStart();
             onExtendPreview();
         }
-        history.push(`/portfolio/${project.path}`);
+        browserHistory.push(`/portfolio/${project.path}`);
     }
-
 
     handleMouseEnter() {
         this.setState({
             isHovered: true
-        })
+        });
     }
 
     handleMouseLeave() {
@@ -139,7 +136,7 @@ export class Project extends React.Component<IProps, IState> {
                 isActive: false,
                 origY: 0
             }
-        })
+        });
     }
 
     handleMouseDown(e) {
@@ -158,7 +155,7 @@ export class Project extends React.Component<IProps, IState> {
                 isActive: false,
                 origY: 0
             }
-        })
+        });
     }
 
     handleMouseMove(e) {
@@ -193,7 +190,7 @@ export class Project extends React.Component<IProps, IState> {
             }
         });
 
-        //detect wheel stop
+        // detect wheel stop
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => this.handleRelease(), 140);
 
@@ -229,7 +226,7 @@ export class Project extends React.Component<IProps, IState> {
             posY: nextPosY
         });
 
-        //detect wheel stop
+        // detect wheel stop
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => this.handleRelease(), 140);
 
@@ -240,13 +237,13 @@ export class Project extends React.Component<IProps, IState> {
     handleHeadingMouseEnter() {
         this.setState({
             isHeadingHovered: true
-        })
+        });
     }
 
     handleHeadingMouseLeave() {
         this.setState({
             isHeadingHovered: false
-        })
+        });
     }
 
     handleRelease() {
@@ -318,7 +315,7 @@ export class Project extends React.Component<IProps, IState> {
         const { isMobile, isTablet, isLaptop, project, index, savedParams, height, previewWidth, onCondensePreview } = this.props;
         const { isHovered, isHeadingHovered, isProjectExtended, posY, isImagesLoading, grabParams } = this.state;
         const isActive = project.path === savedParams.activeProjectPath
-                            || (!savedParams.activeProjectPath && index===0);
+                            || (!savedParams.activeProjectPath && index === 0);
 
         const heightByScroll = ((height + this.elasticBuffer) / this.scrollHeight * (-posY - this.elasticBuffer));
 
@@ -480,7 +477,7 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
         onCondensePreview: () => {
             dispatch(togglePreview(false));
         }
-    }
+    };
 }
 
 export const ProjectFromStore = connect(

@@ -29,7 +29,6 @@ export function sendPutJSON<T>(url: string, body: IDictionary<any>, extraHeaders
         .then(checkServerError);
 }
 
-
 /** Utility method for sending a POST request to the specified URL */
 export function sendPostJSON<T>(url: string, body: IDictionary<any>, extraHeaders?: IDictionary<string>): Promise<T> {
     return fetch(url, {
@@ -46,7 +45,7 @@ export function sendPostJSON<T>(url: string, body: IDictionary<any>, extraHeader
 function getJSONRequestHeaders(extraHeaders?: IDictionary<string>): IDictionary<string> {
     // Default headers used for a JSON request
     let requestHeaders: IDictionary<string> = {'Accept': 'application/json', 'Content-Type': 'application/json'};
-    if(extraHeaders) {
+    if (extraHeaders) {
         // Merge request headers with extra headers if any (extra headers have higher precedence)
         requestHeaders = Immutable.Map(extraHeaders)
                             .merge(Immutable.Map(requestHeaders))

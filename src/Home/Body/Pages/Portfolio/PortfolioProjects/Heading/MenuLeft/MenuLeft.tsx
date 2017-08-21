@@ -8,9 +8,7 @@ interface IProps {
     isLaptop?: boolean
 }
 
-interface IState {}
-
-export class MenuLeft extends React.Component<IProps, IState> {
+export class MenuLeft extends React.Component<IProps, any> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);

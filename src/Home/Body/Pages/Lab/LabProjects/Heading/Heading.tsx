@@ -1,15 +1,10 @@
 import * as React from 'react';
-import * as history from 'history';
 import { connect } from 'react-redux';
 import { colors } from "../../../../../../data/themeOptions";
 import { Logo } from "../../../../../../Widgets/Logo/Logo";
 import { PageHeading } from '../../../../../../Widgets/PageHeading';
 import { IParams } from '../../../../../../data/models';
 import { IStore } from '../../../../../../redux/IStore';
-
-interface IProps {}
-
-interface IState {}
 
 interface IProperties {
     savedParams?: IParams
@@ -24,9 +19,7 @@ interface IProperties {
 
 interface ICallbacks {}
 
-interface IProps extends IProperties, ICallbacks {
-    history?: history.History
-}
+interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
@@ -53,7 +46,7 @@ export class Heading extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isMounted } = this.state;
-        const { isMobile, isTablet, isLaptop, history } = this.props;
+        const { isMobile, isTablet, isLaptop } = this.props;
 
         const styles = {
             heading: {
@@ -101,7 +94,6 @@ export class Heading extends React.Component<IProps, IState> {
                                 isMobile={isMobile}
                                 isTablet={isTablet}
                                 isLaptop={isLaptop}
-                                history={history}
                             />
                         </div>
                         <div style={styles.heading__mainLogo}>

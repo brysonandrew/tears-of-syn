@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Immutable from 'immutable';
-import * as history from 'history';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { IParams } from '../../../../data/models';
 import { labProjectList, labProjects } from '../../../../data/content';
@@ -23,9 +23,7 @@ interface ICallbacks {
     onCondensePreview?: () => void
 }
 
-interface IProps extends IProperties, ICallbacks {
-    history?: history.History
-}
+interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
     keysPressed: string[]
@@ -99,28 +97,23 @@ export class Lab extends React.Component<IProps, IState> {
     handleProjectMenuClick(i) {
         const projectPath = labProjectList[i].path;
         const path = `/lab/${projectPath}`;
-        this.handleParamsChange(path);
+        browserHistory.push(path);
     }
 
     handleSubProjectMenuClick(i) {
         const projectPath = this.props.savedParams.activeProjectPath;
         const subProjectPath = labProjects[projectPath].subComponents[i].path;
         const path = `/lab/${projectPath}/${subProjectPath}`;
-        this.handleParamsChange(path);
+        browserHistory.push(path);
     }
 
     handleBackClick() {
         const path = `/lab`;
-        this.handleParamsChange(path);
-    }
-
-    handleParamsChange(path) {
-        const { history } = this.props;
-        history.push(path);
+        browserHistory.push(path);
     }
 
     render(): JSX.Element {
-        const { savedParams, history } = this.props;
+        const { savedParams } = this.props;
         const { keysPressed, my, mx, isMounted } = this.state;
 
         const isIntro = savedParams.activeProjectPath === "intro" || !savedParams.activeProjectPath;
@@ -169,9 +162,7 @@ export class Lab extends React.Component<IProps, IState> {
                  ref={el => this.parentEl = el}>
                 {isIntro
                     ?   <div style={ styles.lab__heading}>
-                            <HeadingFromStore
-                                history={history}
-                            />
+                            <HeadingFromStore/>
                         </div>
                     :   <div>
                             <div style={ styles.lab__menu }>
@@ -198,7 +189,6 @@ export class Lab extends React.Component<IProps, IState> {
                                 keysPressed: keysPressed,
                                 mx: mx,
                                 my: my,
-                                history: history
                             }
                         )}
                 </div>

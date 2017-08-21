@@ -19,7 +19,7 @@ export class Letter extends React.Component<IProps, any> {
         super(props, context);
     }
 
-    isEqual(a, b) { return a===b };
+    isEqual(a, b) { return a === b; };
 
     render(): JSX.Element {
         const { isLogoHovered, letter, isAnimating } = this.props;
@@ -91,7 +91,7 @@ export class Letter extends React.Component<IProps, any> {
                                                 }
                                             })}
                                         </div>)}
-                                </div>
+                                </div>;
                     }})
                 }
             </div>

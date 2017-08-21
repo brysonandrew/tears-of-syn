@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 import { colors } from "../../../../../../../data/themeOptions";
 import { portfolioProjectList } from "../../../../../../../data/content";
 import { IParams } from "../../../../../../../data/models";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface IProps {
     thickness: number
@@ -48,7 +48,7 @@ export class NavigationArrowRight extends React.Component<IProps, IState> {
         const activeIndex = Immutable.List(portfolioProjectList)
                                      .findIndex(item => item.path === activeProjectPath);
 
-        return (activeIndex > -1) ? activeIndex : 0
+        return (activeIndex > -1) ? activeIndex : 0;
     }
 
     public render(): JSX.Element {
