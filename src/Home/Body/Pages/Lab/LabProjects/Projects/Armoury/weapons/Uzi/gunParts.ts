@@ -33,15 +33,15 @@ export const createHandle = () => {
 export const createGun = () => {
     const gun = new THREE.Group;
 
-    const barrel = this.createSingleBarrel();
+    const barrel = createSingleBarrel();
     barrel.rotation.set(Math.PI * 0.5, 0, 0);
     barrel.position.set(0, 0, 20);
     gun.add( barrel );
 
-    const body = this.createBody();
+    const body = createBody();
     gun.add( body );
 
-    const handle = this.createHandle();
+    const handle = createHandle();
     handle.position.set(0, -20, 0);
     gun.add( handle );
 

@@ -47,7 +47,11 @@ class Html extends React.Component<IHtmlProps, {}> {
           {head.script.toComponent()}
 
           {renderStyles}
-          <link rel="shortcut icon" href="/favicon.png" />
+          <meta name="author" content="Andrew Bryson" />
+          <meta property="og:image" content="http://codebro.io/images/Home/logo.png"/>
+          <meta property="og:image:secure_url" content="http://codebro.io/images/Home/logo.png"/>
+          <link href="https://fonts.googleapis.com/css?family=Palanquin+Dark" rel="stylesheet" />
+          <link rel="shortcut icon" href="/favicon.ico" />
         </head>
         <body>
           <main id="app" dangerouslySetInnerHTML={{ __html: markup }} />

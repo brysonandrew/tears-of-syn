@@ -8,13 +8,8 @@ import { PageHeading } from '../../../../../../Widgets/PageHeading';
 import { IParams } from '../../../../../../data/models';
 import { IStore } from '../../../../../../redux/IStore';
 
-interface IProps {}
-
-interface IState {}
-
 interface IProperties {
     savedParams?: IParams
-    savedLocation?: Location
     isPreviewExtended?: boolean
     isMobile?: boolean
     isTablet?: boolean
@@ -135,7 +130,6 @@ function mapStateToProps(state: IStore, ownProps: IProps): IProperties {
         isTablet: state.homeStore.isTablet,
         isLaptop: state.homeStore.isLaptop,
         isPreviewExtended: state.homeStore.isPreviewExtended,
-        savedLocation: state.homeStore.savedLocation,
         savedParams: state.homeStore.savedParams
     };
 }

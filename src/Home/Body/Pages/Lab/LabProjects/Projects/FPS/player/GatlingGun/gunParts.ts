@@ -124,48 +124,48 @@ export const createWholeBarrel = () => {
 export const createGun = () => {
     const gatlingGun = new THREE.Group;
 
-    const barrelBraceFront = this.createBarrelBrace();
+    const barrelBraceFront = createBarrelBrace();
     barrelBraceFront.rotation.set(Math.PI * 0.5, 0, 0);
     barrelBraceFront.position.set(0, 0, 40);
     gatlingGun.add( barrelBraceFront );
 
-    const barrelBraceMid = this.createBarrelBrace();
+    const barrelBraceMid = createBarrelBrace();
     barrelBraceMid.rotation.set(Math.PI * 0.5, 0, 0);
     barrelBraceMid.position.set(0, 0, 0);
     gatlingGun.add( barrelBraceMid );
 
-    const barrelBraceBack = this.createBarrelBrace();
+    const barrelBraceBack = createBarrelBrace();
     barrelBraceBack.rotation.set(Math.PI * 0.5, 0, 0);
     barrelBraceBack.position.set(0, 0, -44);
     gatlingGun.add( barrelBraceBack );
 
-    const handleBase = this.createHandleBase();
+    const handleBase = createHandleBase();
     handleBase.rotation.set(Math.PI * 0.5, 0, 0);
     handleBase.position.set(0, 10, 44);
     gatlingGun.add( handleBase );
 
-    const handle = this.createHandle();
+    const handle = createHandle();
     gatlingGun.add( handle );
 
-    const engine = this.createEngine();
+    const engine = createEngine();
     engine.rotation.set(Math.PI * 0.5, 0, 0);
     engine.position.set(0, 0, 50);
     gatlingGun.add( engine );
 
-    const ammoFeed = this.createAmmoFeed();
+    const ammoFeed = createAmmoFeed();
     ammoFeed.rotation.set(Math.PI * 0.5, 0, 0);
     ammoFeed.position.set(-12, 2, 50);
     gatlingGun.add( ammoFeed );
 
-    const backHandleBrace = this.createBackHandleBrace();
+    const backHandleBrace = createBackHandleBrace();
     gatlingGun.add( backHandleBrace );
 
-    const backHandle = this.createBackHandle();
+    const backHandle = createBackHandle();
     backHandle.rotation.set(Math.PI * 0.1, Math.PI * 0.5, Math.PI * 0.5);
     backHandle.position.set(0, 12, 56);
     gatlingGun.add( backHandle );
 
-    const barrel = this.createWholeBarrel();
+    const barrel = createWholeBarrel();
     gatlingGun.add( barrel );
 
     return gatlingGun;

@@ -8,7 +8,6 @@ import { IStore } from '../../../../../../redux/IStore';
 
 interface IProperties {
     savedParams?: IParams
-    savedLocation?: Location
     isPreviewExtended?: boolean
     isMobile?: boolean
     isTablet?: boolean
@@ -46,7 +45,7 @@ export class Heading extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isMounted } = this.state;
-        const { isMobile, isTablet, isLaptop } = this.props;
+        const { isMobile, isTablet, isLaptop, savedParams } = this.props;
 
         const styles = {
             heading: {
@@ -94,6 +93,7 @@ export class Heading extends React.Component<IProps, IState> {
                                 isMobile={isMobile}
                                 isTablet={isTablet}
                                 isLaptop={isLaptop}
+                                savedParams={savedParams}
                             />
                         </div>
                         <div style={styles.heading__mainLogo}>
@@ -116,7 +116,6 @@ function mapStateToProps(state: IStore, ownProps: IProps): IProperties {
         isTablet: state.homeStore.isTablet,
         isLaptop: state.homeStore.isLaptop,
         isPreviewExtended: state.homeStore.isPreviewExtended,
-        savedLocation: state.homeStore.savedLocation,
         savedParams: state.homeStore.savedParams
     };
 }

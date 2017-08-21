@@ -7,7 +7,7 @@ interface IProps {
     isMobile?: boolean
     isTablet?: boolean
     isLaptop?: boolean
-    savedParams?: IParams
+    savedParams: IParams
     onPageSelect?: (nextParams: IParams) => void
 }
 
@@ -35,7 +35,8 @@ export class PageHeading extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isMobile, savedParams } = this.props;
-        const pagePath = savedParams.activePagePath ? savedParams.activePagePath : "portfolio";
+        console.log(savedParams);
+        const pagePath = !!savedParams.activePagePath ? savedParams.activePagePath : "portfolio";
         const isPortfolio = !pagePath || pagePath === "portfolio";
         const mobileDisplay = `${!isMobile ? 'inline-' : ''}block`;
 
