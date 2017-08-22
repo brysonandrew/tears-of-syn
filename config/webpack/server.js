@@ -1,8 +1,6 @@
 var path = require('path');
 var fs = require('fs');
 var webpack = require('webpack');
-var postcssNext = require('postcss-cssnext');
-var stylelint = require('stylelint');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -69,17 +67,7 @@ var config = {
 
   plugins: [
       new webpack.LoaderOptionsPlugin({
-        debug: false,
-        options: {
-          postcss: function () {
-            return [
-              postcssNext(),
-              postcssAssets({
-                relative: true
-              }),
-            ];
-          },
-        }
+        debug: false
       })
   ],
 
