@@ -20,15 +20,11 @@
     "moduleResolution": "node"
   },
   "types": [
-    "core-js",
     "node",
-    "history",
     "react",
     "react-dom",
-    "react-motion",
     "redux",
-    "react-router",
-    "react-router-dom"
+    "react-router"
   ],
   "exclude": [
     "node_modules",
