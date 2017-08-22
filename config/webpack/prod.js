@@ -149,13 +149,13 @@ const copySync = (src, dest, overwrite) => {
   }
   const data = fs.readFileSync(src);
   fs.writeFileSync(dest, data);
-}
+};
 
 const createIfDoesntExist = dest => {
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest);
   }
-}
+};
 
 createIfDoesntExist('./build');
 createIfDoesntExist('./build/public');
