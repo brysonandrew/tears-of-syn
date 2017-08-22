@@ -81,14 +81,8 @@ app.get('*', (req, res) => {
       }
     });
 });
-app.listen((parseInt(process.env.PORT, 10) || 3000), (err) => {
-  if (err) {
-    console.error(Chalk.bgRed(err));
-  } else {
-    console.info(Chalk.white.bgGreen(
-      `\n\nListening at http://${appConfig.host}:${appConfig.port}\n`,
-    ));
-  }
+app.connection({
+  port: process.env.PORT || 3000
 });
 
 function renderHTML(markup: string, store: any) {
