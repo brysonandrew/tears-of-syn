@@ -11,6 +11,7 @@
     "module": "commonjs",
     "target": "es5",
     "lib": ["es2017", "dom"],
+    "allowJs": true,
     "sourceMap": true,
     "inlineSourceMap": false,
     "inlineSources": false,
@@ -18,6 +19,17 @@
     "jsx": "react",
     "moduleResolution": "node"
   },
+  "types": [
+    "core-js",
+    "node",
+    "history",
+    "react",
+    "react-dom",
+    "react-motion",
+    "redux",
+    "react-router",
+    "react-router-dom"
+  ],
   "exclude": [
     "node_modules",
     "build",
