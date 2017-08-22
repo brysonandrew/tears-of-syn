@@ -1,4 +1,4 @@
-import * as appConfig from '../config/main.js';
+const appConfig = require('../config/main');
 
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
@@ -10,18 +10,18 @@ import * as ReactDOMServer from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
+const { ReduxAsyncConnect, loadOnServer } = require('redux-connect');
 import { configureStore } from './redux/store';
 import routes from './app/routes';
 
 import { Html } from './app/containers';
 const manifest = require('../build/manifest.json');
 
-import express from 'express';
-import * as path from 'path';
-import compression from 'compression';
-import Chalk from 'chalk';
-import favicon from 'serve-favicon';
+const express = require('express');
+const path = require('path');
+const compression = require('compression');
+const Chalk = require('chalk');
+const favicon = require('serve-favicon');
 
 const app = express();
 
@@ -79,12 +79,12 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(appConfig.port, (err) => {
+app.listen(appConfig.port, appConfig.host, (err) => {
   if (err) {
     console.error(Chalk.bgRed(err));
   } else {
     console.info(Chalk.white.bgGreen(
-      `\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`,
+      `\n\nListening at http://${appConfig.host}:${appConfig.port}\n`,
     ));
   }
 });
