@@ -15,10 +15,7 @@ import { configureStore } from './redux/store';
 import routes from './app/routes';
 
 import { Html } from './app/containers';
-const manifest = {
-  "app.js": "js/app.js",
-  "app.js.map": "js/app.js.map"
-};
+const manifest = require('../build/manifest.json');
 
 const express = require('express');
 const path = require('path');
@@ -50,7 +47,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
-
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static('./public/images'));
 
 app.get('*', (req, res) => {
@@ -80,7 +77,17 @@ app.get('*', (req, res) => {
         res.status(404).send('Not Found?');
       }
     });
-}).listen(process.env.PORT || 8080);
+});
+
+app.listen(appConfig.port, appConfig.host, (err) => {
+  if (err) {
+    console.error(Chalk.bgRed(err));
+  } else {
+    console.info(Chalk.black.bgGreen(
+      `\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`,
+    ));
+  }
+});
 
 function renderHTML(markup: string, store: any) {
   const html = ReactDOMServer.renderToString(
