@@ -1,7 +1,6 @@
 var path = require('path');
 var fs = require('fs');
 var webpack = require('webpack');
-var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
 var stylelint = require('stylelint');
 
