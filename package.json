@@ -9,8 +9,8 @@
     "build": "webpack --config config/webpack/index.js",
     "postinstall": "NODE_ENV=production webpack --config config/webpack/server.js",
     "prestart": "npm run build",
-    "start": "node build/server.js",
-    "start:prod": "cross-env NODE_ENV=production npm start",
+    "start:dev": "node build/server.js",
+    "start": "cross-env NODE_ENV=production npm start",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\""
   },
