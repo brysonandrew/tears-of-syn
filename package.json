@@ -107,8 +107,7 @@
     "url-loader": "^0.5.7",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-dev-server": "^2.2.0",
-    "webpack-hot-middleware": "^2.18.0",
-    "webpack-manifest-plugin": "^1.1.0"
+    "webpack-hot-middleware": "^2.18.0"
   },
   "dependencies": {
     "calipers-gif": "^2.0.0",
@@ -141,6 +140,7 @@
     "serve-favicon": "^2.3.2",
     "stylelint": "^7.7.1",
     "three": "^0.87.1",
-    "webpack": "^2.2.0"
+    "webpack": "^2.2.0",
+    "webpack-manifest-plugin": "^1.1.0"
   }
 }
