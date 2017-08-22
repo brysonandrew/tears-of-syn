@@ -41,6 +41,3 @@ typings
 # JetBrains
 .idea
 .awcache
-
-# build folder
-build
