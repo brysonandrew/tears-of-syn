@@ -23,8 +23,13 @@
     "node",
     "react",
     "react-dom",
+    "react-router",
+    "react-router-redux",
     "redux",
     "react-router"
+  ],
+  "typeRoots": [
+    "node_modules/@types"
   ],
   "exclude": [
     "node_modules",
