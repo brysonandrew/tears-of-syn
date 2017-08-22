@@ -1,1 +1,1 @@
-web: npm run start:prod webpack --config config/webpack/index.js node --optimize_for_size --max_old_space_size=460 --gc_interval=100 /build/server.js
+web: npm run build:prod node --optimize_for_size --max_old_space_size=460 --gc_interval=100 /build/server.js
