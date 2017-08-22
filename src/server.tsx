@@ -80,10 +80,7 @@ app.get('*', (req, res) => {
         res.status(404).send('Not Found?');
       }
     });
-});
-app.connection({
-  port: process.env.PORT || 3000
-});
+}).listen(process.env.PORT || 3000);
 
 function renderHTML(markup: string, store: any) {
   const html = ReactDOMServer.renderToString(
