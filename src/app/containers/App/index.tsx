@@ -1,4 +1,4 @@
-const appConfig = require('../../../../config/main');
+const appConfig = require('../../../../config/main.js');
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
