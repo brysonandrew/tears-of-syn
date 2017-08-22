@@ -4,7 +4,8 @@
   "description": "Website for helping people who want to know more about the web.",
   "main": "build/server.js",
   "scripts": {
-    "postinstall": "NODE_ENV=production webpack --config config/webpack/index.js NODE_ENV=production webpack --config config/webpack/server.js",
+    "preinstall": "NODE_ENV=production webpack --config config/webpack/index.js",
+    "postinstall": "NODE_ENV=production webpack --config config/webpack/server.js",
     "start": "NODE_ENV=production node build/server.js",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\""
