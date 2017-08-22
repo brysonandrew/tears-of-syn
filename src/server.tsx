@@ -78,8 +78,7 @@ app.get('*', (req, res) => {
       }
     });
 });
-console.log(process.env.NODE_ENV );
-app.listen(appConfig.port, (err) => {
+app.listen((parseInt(process.env.PORT, 10) || 3000), (err) => {
   if (err) {
     console.error(Chalk.bgRed(err));
   } else {
