@@ -82,12 +82,12 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(appConfig.port, appConfig.host, (err) => {
+app.listen(appConfig.port, (err) => {
   if (err) {
     console.error(Chalk.bgRed(err));
   } else {
     console.info(Chalk.black.bgGreen(
-      `\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`,
+      `\n\nListening at http://${appConfig.host}:${appConfig.port}\n`,
     ));
   }
 });
