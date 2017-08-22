@@ -14,8 +14,8 @@
     "build:prod": "cross-env NODE_ENV=production npm run build",
     "postbuild": "webpack --config config/webpack/server.js",
     "prestart": "npm run build",
-    "start:dev": "node build/server.js",
-    "start": "cross-env NODE_ENV=production npm start:dev",
+    "start": "node build/server.js",
+    "start:prod": "cross-env NODE_ENV=production npm start",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\""
   },
