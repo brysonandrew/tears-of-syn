@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config config/webpack/server.js",
     "postinstall": "NODE_ENV=production webpack --config config/webpack/index.js",
-    "start": "node ./build/server.js",
+    "start": "node ../build/server.js",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\""
   },
