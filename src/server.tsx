@@ -15,7 +15,10 @@ import { configureStore } from './redux/store';
 import routes from './app/routes';
 
 import { Html } from './app/containers';
-const manifest = require('../build/manifest.json');
+const manifest = {
+  "app.js": "js/app.js",
+  "app.js.map": "js/app.js.map"
+};
 
 const express = require('express');
 const path = require('path');
