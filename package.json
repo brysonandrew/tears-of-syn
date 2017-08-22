@@ -98,7 +98,6 @@
     "source-map-loader": "^0.1.6",
     "style-loader": "^0.13.1",
     "tslint": "^4.3.1",
-    "tslint-loader": "^3.3.0",
     "tslint-react": "^2.3.0",
     "typescript": "^2.1.5",
     "url-loader": "^0.5.7",
@@ -140,6 +139,7 @@
     "serve-favicon": "^2.3.2",
     "stylelint": "^7.7.1",
     "three": "^0.87.1",
+    "tslint-loader": "^3.3.0",
     "webpack": "^2.2.0",
     "webpack-manifest-plugin": "^1.1.0"
   }
