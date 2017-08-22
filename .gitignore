@@ -43,4 +43,4 @@ typings
 .awcache
 
 # build folder
-./build
+build
