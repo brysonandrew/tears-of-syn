@@ -9,8 +9,8 @@ var config = {
   // This part goes to React-Helmet for Head of our HTML
   app: {
     head: {
-      title: 'Code Bro | Freelance Web Developer',
-      titleTemplate: 'code-bro: %s',
+      title: 'Freelance Web Developer',
+      titleTemplate: 'Code Bro | %s',
       meta: [
         { charset: 'utf-8' },
         { 'http-equiv': 'x-ua-compatible', content: 'ie=edge' },
