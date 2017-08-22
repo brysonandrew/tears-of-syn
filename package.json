@@ -97,7 +97,6 @@
     "redux-mock-store": "^1.2.1",
     "source-map-loader": "^0.1.6",
     "style-loader": "^0.13.1",
-    "typescript": "^2.1.5",
     "url-loader": "^0.5.7",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-dev-server": "^2.2.0",
@@ -140,6 +139,7 @@
     "tslint": "^4.3.1",
     "tslint-react": "^2.3.0",
     "tslint-loader": "^3.3.0",
+    "typescript": "^2.1.5",
     "webpack": "^2.2.0",
     "webpack-manifest-plugin": "^1.1.0"
   }
