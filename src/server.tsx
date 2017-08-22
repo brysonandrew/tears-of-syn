@@ -1,4 +1,4 @@
-const appConfig = require('../config/main');
+const appConfig = require('../config/main.js');
 
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
@@ -78,7 +78,7 @@ app.get('*', (req, res) => {
       }
     });
 });
-
+console.log(process.env.NODE_ENV );
 app.listen(appConfig.port, (err) => {
   if (err) {
     console.error(Chalk.bgRed(err));
