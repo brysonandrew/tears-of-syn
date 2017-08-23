@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { IndexRoute, Route } from 'react-router';
 import { App, HomeFromStore } from 'containers';
-import { labProjectList, pageList, portfolioProjectList } from '../../data/content';
-import {particlesMenuItemList} from '../../Home/Body/Pages/Lab/LabProjects/Projects/Particles/particlesMenu/particlesMenu';
-import {armouryMenuItemList} from '../../Home/Body/Pages/Lab/LabProjects/Projects/Armoury/armouryMenu/armouryMenu';
-import {garageMenuItemList} from '../../Home/Body/Pages/Lab/LabProjects/Projects/Garage/garageMenu/garageMenu';
+import { pageList } from '../../data/content/pages/pages';
+import { labProjectList } from '../../data/content/pages/projects/lab';
+import { portfolioProjectList } from '../../data/content/pages/projects/portfolio';
+import { particlesMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/Projects/Particles/particlesMenu/particlesMenu';
+import { armouryMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/Projects/Armoury/armouryMenu/armouryMenu';
+import { garageMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/Projects/Garage/garageMenu/garageMenu';
 
 export default (
   <Route path="/" component={App}>

@@ -85,7 +85,7 @@ app.listen(appConfig.port, (err) => {
   if (err) {
     console.error(Chalk.bgRed(err));
   } else {
-    console.info(Chalk.black.bgGreen(
+    console.info(Chalk.white.bgGreen(
       `\n\nListening at http://${appConfig.host}:${appConfig.port}\n`,
     ));
   }

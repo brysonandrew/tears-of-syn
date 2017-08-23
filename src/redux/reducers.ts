@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 import { IStore } from './IStore';
-import { homeReducer } from '../Home/HomeReducer';
+import { homeReducer } from '../app/containers/Home/HomeReducer';
 
 const { reducer } = require('redux-connect');
 
