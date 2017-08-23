@@ -28,7 +28,7 @@ export class Loader extends React.Component<any, any> {
         return (
             <div style={ styles.loader }>
                 <pre style={ styles.loader__text }>
-                    L O A D I N G
+                    L O A D I N G . . .
                 </pre>
             </div>
         );
