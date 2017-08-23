@@ -15,8 +15,8 @@ interface IProperties {
     isMobile?: boolean
     isTablet?: boolean
     isLaptop?: boolean
-    docScroll?: number
     height?: number
+    isPreviewExtended?: boolean
     savedParams?: IParams
 }
 
@@ -30,7 +30,6 @@ interface IProps extends IProperties, ICallbacks {
     index: number
     project: IPortfolioProject
     previewWidth?: number
-    docScroll?: number
     offsetTop?: number
 }
 
@@ -75,10 +74,13 @@ export class Project extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { savedParams } = this.props;
+        const { savedParams, isPreviewExtended } = this.props;
         const isParamsChanged = (savedParams.activeProjectPath !== nextProps.savedParams.activeProjectPath);
-        if (isParamsChanged && savedParams.activeProjectPath)  {
-            this.handleReset();
+
+        const isPreviewExtendedChanged = (!nextProps.isPreviewExtended
+            && isPreviewExtended !== nextProps.isPreviewExtended);
+        if (isParamsChanged || isPreviewExtendedChanged)  {
+            this.handleReset(nextProps.isPreviewExtended);
         }
     }
 
@@ -94,7 +96,7 @@ export class Project extends React.Component<IProps, IState> {
         onAnimationStart();
     }
 
-    handleReset() {
+    handleReset(isPreviewExtended) {
 
         this.setState({ // reset
             isHovered: false,
@@ -102,16 +104,16 @@ export class Project extends React.Component<IProps, IState> {
             isProjectExtended: false,
             posY: 0
         });
-
-        this.timeoutId = setTimeout(() => this.props.onCondensePreview(), 500);
-
+        if (isPreviewExtended) {
+            this.timeoutId = setTimeout(() => this.props.onCondensePreview(), 500);
+        }
     }
 
     handleHeadingClick() {
         const { project, onAnimationStart, onExtendPreview } = this.props;
         const { isProjectExtended } = this.state;
         if (isProjectExtended) {
-            this.handleReset();
+            this.timeoutId = setTimeout(() => this.props.onCondensePreview(), 500);
         } else {
             this.setState({
                 isProjectExtended: true,
@@ -312,7 +314,7 @@ export class Project extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        const { isMobile, isTablet, isLaptop, project, index, savedParams, height, previewWidth, onCondensePreview } = this.props;
+        const { isMobile, isTablet, isLaptop, project, index, savedParams, height, previewWidth } = this.props;
         const { isHovered, isHeadingHovered, isProjectExtended, posY, isImagesLoading, grabParams } = this.state;
         const isActive = project.path === savedParams.activeProjectPath
                             || (!savedParams.activeProjectPath && index === 0);
@@ -329,7 +331,8 @@ export class Project extends React.Component<IProps, IState> {
             project: {
                 position: "relative",
                 height: height,
-                width: "100%"
+                width: "100%",
+                zIndex: 0
             },
             project__barFill: {
                 position: "absolute",
@@ -379,24 +382,24 @@ export class Project extends React.Component<IProps, IState> {
 
         return (
             <div style={ styles.project }
-                  onWheel={isProjectExtended
-                                ?   isImagesLoading
-                                    ?   e => e.preventDefault()
-                                    :   e => this.handleWheel(e)
-                                :   null}
-                  onClick={isActive
-                                ?   isProjectExtended
-                                        ?   null
-                                        :   this.handleHeadingClick
-                                :   this.handleClick}
+                 onWheel={isProjectExtended
+                     ?   isImagesLoading
+                         ?   e => e.preventDefault()
+                         :   e => this.handleWheel(e)
+                     :   null}
+                 onClick={isActive
+                     ?   isProjectExtended
+                         ?   null
+                         :   this.handleHeadingClick
+                     :   this.handleClick}
                  onMouseDown={isActive
-                            && isProjectExtended
-                            && !isImagesLoading
-                                 ?   this.handleMouseDown
-                                 :   null}
+                 && isProjectExtended
+                 && !isImagesLoading
+                     ?   this.handleMouseDown
+                     :   null}
                  onMouseUp={isActive && isProjectExtended
-                                 ?   this.handleMouseUp
-                                 :   null}
+                     ?   this.handleMouseUp
+                     :   null}
                  onMouseMove={(isActive && grabParams.isActive) ? this.handleMouseMove : null}>
                 <div style={ styles.project__inner }
                      ref={el => this.innerRef = el}
@@ -404,8 +407,8 @@ export class Project extends React.Component<IProps, IState> {
                      onMouseLeave={this.handleMouseLeave}>
                     {project.imagePaths.map((path, i) =>
                         ((isProjectExtended && !isImagesLoading)
-                        || i === 0)
-                            &&
+                            || i === 0)
+                        &&
                         <img key={i}
                              style={ styles.project__image }
                              src={path}/>
@@ -421,18 +424,10 @@ export class Project extends React.Component<IProps, IState> {
                         />
                         <Loader/>
                     </div>}
-                    {isProjectExtended
-                        ?   <div>
-                                <ProjectLink
-                                    project={project}
-                                    isMobile={isMobile}
-                                    isTablet={isTablet}
-                                    isLaptop={isLaptop}
-                                />
-                            </div>
-                        :   <div style={ styles.project__heading}
-                                onMouseEnter={isActive ? () => this.handleHeadingMouseEnter() : null}
-                                onMouseLeave={isActive ? () => this.handleHeadingMouseLeave() : null}>
+                    {!isProjectExtended
+                        &&  <div style={ styles.project__heading}
+                                 onMouseEnter={isActive ? () => this.handleHeadingMouseEnter() : null}
+                                 onMouseLeave={isActive ? () => this.handleHeadingMouseLeave() : null}>
                                 <ProjectHeading
                                     project={project}
                                     previewWidth={previewWidth}
@@ -445,9 +440,9 @@ export class Project extends React.Component<IProps, IState> {
                                 />
                             </div>}
                 </div>
-               <div style={ styles.project__barFill}>
+                <div style={ styles.project__barFill}>
                     <div style={ styles.project__bar} />
-               </div>
+                </div>
             </div>
         );
     }
@@ -462,7 +457,8 @@ function mapStateToProps(state: IStore, ownProps: IProps): IProperties {
         isMobile: state.homeStore.isMobile,
         isTablet: state.homeStore.isTablet,
         isLaptop: state.homeStore.isLaptop,
-        savedParams: state.homeStore.savedParams
+        savedParams: state.homeStore.savedParams,
+        isPreviewExtended: state.homeStore.isPreviewExtended
     };
 }
 

@@ -94,7 +94,8 @@ export class Portfolio extends React.Component<IProps, IState> {
                 opacity:  isPreviewExtended ? 0.4 : 1,
                 filter: `grayscale(${isPreviewExtended ? 100 : 0}%) blur(${isPreviewExtended ? 2 : 0}px)`,
                 zIndex: isPreviewExtended ? 0 : 4,
-                transition: "filter 400ms, opacity 400ms"
+                transition: "filter 400ms, opacity 400ms",
+                cursor: "pointer"
             },
             portfolio__bottomNav: {
                 position: "fixed",

@@ -42,16 +42,16 @@ export class ProjectLink extends React.Component<IProps, IState> {
         const styles = {
             projectLink: {
                 position: "relative",
-                display: `${isTablet ? "" : "inline-"}block`,
-                padding: "0px 10px",
-                width: 220,
+                display: "block",
+                padding: 10,
+                width: "calc(100% - 20px)",
                 cursor: "pointer",
                 transition: "margin 200ms, padding 200ms"
             },
             projectLink__inner: {
                 display: "table-cell",
                 verticalAlign: "middle",
-                height: 55,
+                height: 50,
             },
             projectLink__icon: {
                 display: "inline-block",
@@ -60,10 +60,15 @@ export class ProjectLink extends React.Component<IProps, IState> {
             },
             projectLink__label: {
                 display: "inline-block",
-                height: 20,
+                height: 55,
                 padding: "0px 10px",
                 width: "auto",
-                color: colors.gry
+                color: colors.std
+            },
+            projectLink__underline: {
+                position: "absolute",
+                left: 6,
+                top: -6
             }
         } as any;
         return (
@@ -74,12 +79,14 @@ export class ProjectLink extends React.Component<IProps, IState> {
                 onMouseEnter={() => this.handleMouseEnter()}>
                 <div style={styles.projectLink__inner}>
                     <span style={styles.projectLink__label}>
-                        {"See project."}
+                        {"See project"}
                     </span>
                 </div>
-                <UnderlineToArrow
-                    isHovered={isHovered}
-                />
+                <div style={styles.projectLink__underline}>
+                    <UnderlineToArrow
+                        isHovered={isHovered}
+                    />
+                </div>
             </a>
         );
     }

@@ -19,10 +19,18 @@ export class Loader extends React.Component<any, any> {
                 animationDuration: "5000ms",
                 animationIterationCount: "infinite",
                 animationName: "gradients"
+            },
+            loader__text: {
+                padding: 10,
+                color: colors.wht
             }
         } as any;
         return (
-            <div style={ styles.loader }/>
+            <div style={ styles.loader }>
+                <pre style={ styles.loader__text }>
+                    L O A D I N G
+                </pre>
+            </div>
         );
     }
 }

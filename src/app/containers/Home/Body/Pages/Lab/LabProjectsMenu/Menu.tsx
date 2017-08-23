@@ -3,7 +3,7 @@ import { labProjectList } from "../../../../../../../data/content/pages/projects
 import { MenuItem } from "./MenuItem";
 import { connect } from 'react-redux';
 import { toggleMenu } from '../../../../HomeActionCreators';
-import { MenuButton } from "./MenuButton";
+import { MenuButton } from "../../../../../../widgets/MenuButton";
 import { IParams } from "../../../../../../../data/models";
 import { IStore } from '../../../../../../../redux/IStore';
 
@@ -77,15 +77,16 @@ export class Menu extends React.Component<IProps, IState> {
                 />
                 {isMenuOpen &&  <div style={styles.pagesMenu__items}>
                                     {labProjectList.map((content, i) =>
-                                        <MenuItem
-                                            key={i}
-                                            index={i}
-                                            savedParams={savedParams}
-                                            isMenuOpen={isMenuOpen}
-                                            content={content}
-                                            onClick={onProjectMenuClick}
-                                            onSubProjectMenuClick={onSubProjectMenuClick}
-                                        />)}
+                                        content.path !== "intro"
+                                        &&  <MenuItem
+                                                key={i}
+                                                index={i}
+                                                savedParams={savedParams}
+                                                isMenuOpen={isMenuOpen}
+                                                content={content}
+                                                onClick={onProjectMenuClick}
+                                                onSubProjectMenuClick={onSubProjectMenuClick}
+                                            />)}
                                 </div>}
             </div>
         );

@@ -7,6 +7,7 @@ import { MenuLeft } from "./MenuLeft/MenuLeft";
 import { PageHeading } from '../../../../../../../widgets/PageHeading';
 import { IParams } from '../../../../../../../../data/models';
 import { IStore } from '../../../../../../../../redux/IStore';
+import { browserHistory } from 'react-router';
 
 interface IProperties {
     savedParams?: IParams
@@ -43,6 +44,10 @@ export class Heading extends React.Component<IProps, IState> {
 
     componentWillUnmount() {
         clearTimeout(this.timerId);
+    }
+
+    static handleClick() {
+        browserHistory.push('/lab');
     }
 
     render(): JSX.Element {
@@ -83,11 +88,12 @@ export class Heading extends React.Component<IProps, IState> {
                 height: 40,
                 width: 40,
                 padding: "5px 0",
-                transform: "scale(0.8)"
+                transform: "scale(0.6)"
             }
         } as any;
         return (
-            <div style={styles.heading}>
+            <div style={styles.heading}
+                 onClick={Heading.handleClick}>
                 <MenuLeft
                     isMobile={isMobile}
                     isTablet={isTablet}

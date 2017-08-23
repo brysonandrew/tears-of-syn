@@ -34,7 +34,6 @@ export class Heading extends React.Component<IProps, IState> {
         this.state = {
             isMounted:  false
         };
-        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -45,7 +44,7 @@ export class Heading extends React.Component<IProps, IState> {
         clearTimeout(this.timerId);
     }
 
-    handleClick() {
+    static handleClick() {
         browserHistory.push('/portfolio');
     }
 
@@ -88,12 +87,12 @@ export class Heading extends React.Component<IProps, IState> {
                 height: 40,
                 width: 40,
                 padding: "5px 0",
-                transform: "scale(0.8)"
+                transform: "scale(0.6)"
             }
         } as any;
         return (
             <div style={styles.heading}
-                onClick={this.handleClick}>
+                onClick={Heading.handleClick}>
                 <div style={styles.heading__main}>
                     <div style={styles.heading__mainInner}>
                         <div style={styles.heading__mainText}>

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Motion, spring } from 'react-motion';
-import { colors } from "../../../../../../../data/themeOptions";
+import { colors } from "../../data/themeOptions";
 
 interface IProps {
     isACross: boolean
     onClick?: () => void
+    crossColor?: string
 }
 
 interface IState {
@@ -30,10 +31,11 @@ export class MenuButton extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isHovered } = this.state;
-        const { isACross, onClick } = this.props;
+        const { isACross, onClick, crossColor } = this.props;
 
         const styles = {
             menuButton: {
+                display: "inline-block",
                 position: "relative",
                 width: 40,
                 height: 40,
@@ -44,7 +46,12 @@ export class MenuButton extends React.Component<IProps, IState> {
                 width: "100%",
                 height: 6,
                 borderRadius: 2,
-                background: isACross ? colors.wht : colors.std
+                opacity: isHovered ? 0.8 : 1,
+                background: isACross
+                                ?   !!crossColor
+                                        ?   colors.std
+                                        :   colors.wht
+                                :   colors.std
             },
             menuButton__lines: [
                 {

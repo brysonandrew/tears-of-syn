@@ -52,7 +52,7 @@ export class PageHeading extends React.Component<IProps, IState> {
             pageHeading__options: {
                 display: mobileDisplay,
                 fontSize: 12,
-                paddingRight: isMobile ? 0 : 16,
+                paddingRight: isMobile ? 0 : 24,
             },
             pageHeading__itemPortfolio: {
                 display: "block",

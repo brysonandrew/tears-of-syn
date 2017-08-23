@@ -6,7 +6,7 @@ import { IParams } from '../../../../../../data/models';
 import { labProjectList, labProjects } from '../../../../../../data/content/pages/projects/lab';
 import { MenuFromStore } from './LabProjectsMenu/Menu';
 import { HeadingFromStore } from './LabProjects/Heading/Heading';
-import { MenuButton } from './LabProjectsMenu/MenuButton';
+import { MenuButton } from '../../../../../widgets/MenuButton';
 import { IStore } from '../../../../../../redux/IStore';
 
 interface IProperties {
@@ -48,9 +48,7 @@ export class Lab extends React.Component<IProps, IState> {
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
-        this.handleProjectMenuClick = this.handleProjectMenuClick.bind(this);
         this.handleSubProjectMenuClick = this.handleSubProjectMenuClick.bind(this);
-        this.handleBackClick = this.handleBackClick.bind(this);
     }
 
     componentDidMount() {
@@ -94,7 +92,7 @@ export class Lab extends React.Component<IProps, IState> {
         });
     }
 
-    handleProjectMenuClick(i) {
+    static handleProjectMenuClick(i) {
         const projectPath = labProjectList[i].path;
         const path = `/lab/${projectPath}`;
         browserHistory.push(path);
@@ -107,9 +105,8 @@ export class Lab extends React.Component<IProps, IState> {
         browserHistory.push(path);
     }
 
-    handleBackClick() {
-        const path = `/lab`;
-        browserHistory.push(path);
+    static handleBackClick() {
+        browserHistory.push(`/lab`);
     }
 
     render(): JSX.Element {
@@ -167,16 +164,16 @@ export class Lab extends React.Component<IProps, IState> {
                     :   <div>
                             <div style={ styles.lab__menu }>
                                 <MenuFromStore
-                                    onProjectMenuClick={this.handleProjectMenuClick}
+                                    onProjectMenuClick={Lab.handleProjectMenuClick}
                                     onSubProjectMenuClick={this.handleSubProjectMenuClick}
                                 />
                             </div>
                             <div style={ styles.lab__back }
-                                 onClick={this.handleBackClick}>
+                                 onClick={Lab.handleBackClick}>
                                 back
                                 <MenuButton
                                     isACross={true}
-                                    onClick={this.handleBackClick}
+                                    onClick={Lab.handleBackClick}
                                 />
                             </div>
                         </div>}
