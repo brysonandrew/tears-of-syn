@@ -76,10 +76,9 @@ export class Project extends React.Component<IProps, IState> {
     componentWillReceiveProps(nextProps) {
         const { savedParams, isPreviewExtended } = this.props;
         const isParamsChanged = (savedParams.activeProjectPath !== nextProps.savedParams.activeProjectPath);
+        const isPreviewExtendedChanged = (isPreviewExtended !== nextProps.isPreviewExtended);
 
-        const isPreviewExtendedChanged = (!nextProps.isPreviewExtended
-            && isPreviewExtended !== nextProps.isPreviewExtended);
-        if (isParamsChanged || isPreviewExtendedChanged)  {
+        if (isParamsChanged || (!!isPreviewExtended && isPreviewExtendedChanged))  {
             this.handleReset(nextProps.isPreviewExtended);
         }
     }
@@ -363,8 +362,12 @@ export class Project extends React.Component<IProps, IState> {
             project__image: {
                 position: "relative",
                 width: "calc(100% - 20px)",
-                padding: "0px 10px",
+                margin: "0px 10px",
+                border: "1px solid grey",
                 height: "auto",
+                WebkitBoxShadow: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
+                MozBoxShadow: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
+                boxShadow: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
                 WebkitFilter: `grayscale(${isActive ? 0 : isHovered ? 20 : 100}%)`,
                 MozFilter: `grayscale(${isActive ? 0 : isHovered ? 20 : 100}%)`,
                 filter: `grayscale(${isActive ? 0 : isHovered ? 20 : 100}%)`,

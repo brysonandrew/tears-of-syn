@@ -60,14 +60,14 @@ export class Heading extends React.Component<IProps, IState> {
                 width: "100%",
                 cursor: "pointer"
             },
+            heading__main: {
+                position: "absolute",
+                right: 10,
+                top: 0
+            },
             heading__sub: {
                 position: "relative",
                 top: 50,
-            },
-            heading__main: {
-                position: "absolute",
-                right: 0,
-                top: 0
             },
             heading__mainInner: {
                 display: "table-cell",

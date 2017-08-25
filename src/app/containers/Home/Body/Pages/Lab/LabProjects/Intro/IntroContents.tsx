@@ -41,6 +41,8 @@ export class IntroContents extends React.Component<IProps, IState> {
         return (
             <div style={styles.introContents}>
                 {labProjectList.map((item, i) =>
+                    item.path !== "intro"
+                    &&
                     <Link key={i}
                           to={`/lab/${item.path}`}
                           onClick={() => this.handleClick(i)}
