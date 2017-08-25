@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
 import { IParams } from "../../../data/models";
 import { IStore } from '../../../redux/IStore';
-import { changeViewportDimensions, saveParams, toggleScrollAnimation } from './HomeActionCreators';
-import { toParams } from "../../../data/helpers/toParams";
 import { Pages } from './Body/Pages/Pages';
 import { browserHistory } from 'react-router';
-import createHistory from 'history/createBrowserHistory';
+import { ScreenSaver } from '../../widgets/ScreenSaver';
+import { toParams } from "../../../data/helpers/toParams";
+import { changeViewportDimensions, saveParams, toggleScrollAnimation } from './HomeActionCreators';
 
 interface IProperties {
     savedParams?: IParams
@@ -90,6 +91,7 @@ export class Home extends React.Component<IProps, IState> {
 
         return (
             <div style={ styles.home }>
+                <ScreenSaver/>
                 <Pages
                     savedParams={savedParams}
                 />

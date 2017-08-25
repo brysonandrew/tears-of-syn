@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Word } from './Word';
-import { Link } from 'react-router';
 
 interface IState {
     isHovered?: boolean
@@ -37,7 +36,7 @@ export class Logo extends React.Component<any, IState> {
                 position: "relative",
                 width: "100%",
                 height: "100%",
-                cursor: "pointer",
+                cursor: "pointer"
             }
         } as any;
         const words = ["c", "b"];

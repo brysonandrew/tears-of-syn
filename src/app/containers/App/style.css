@@ -36,17 +36,17 @@ ul li {
   text-align: center;
 }
 
-@keyframes fade {
-  0%   { opacity: 1; }
-  50%   { opacity: 0.4; }
-  100% { opacity: 1; }
+@keyframes :global(gradients) {
+  0%   {background-position: 0 0;}
+  25%  {background-position: 50% 0;}
+  50%  {background-position: 90% 0;}
+  60%  {background-position: 60%;}
+  75%  {background-position: 40%;}
+  100% {background-position: 0 0;}
 }
 
-@keyframes gradients {
-  0%   {background-position: 0 0;}
-  25% {background-position: 50% 0;}
-  50% {background-position: 90% 0;}
-  60% {background-position: 60%;}
-  75% {background-position: 40%;}
-  100%  {background-position: 0 0;}
+@keyframes :global(fade) {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.4; }
+  100% { opacity: 1; }
 }
