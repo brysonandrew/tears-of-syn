@@ -39,7 +39,6 @@ export class Portfolio extends React.Component<IProps, IState> {
         this.state = {
             isMounted: false
         };
-        this.handleArrowNavigation = this.handleArrowNavigation.bind(this);
     }
 
     componentDidMount() {
@@ -68,7 +67,7 @@ export class Portfolio extends React.Component<IProps, IState> {
         clearTimeout(this.timerId);
     }
 
-    handleArrowNavigation(nextPath) {
+    static handleArrowNavigation(nextPath) {
         browserHistory.push(nextPath);
     }
 
@@ -114,7 +113,7 @@ export class Portfolio extends React.Component<IProps, IState> {
                 </div>
                 <div style={ styles.portfolio__bottomNav }>
                     <BottomNavigationMenu
-                        onArrowNavigation={this.handleArrowNavigation}
+                        onArrowNavigation={Portfolio.handleArrowNavigation}
                         savedParams={savedParams}
                         isMobile={isMobile}
                         isTablet={isTablet}

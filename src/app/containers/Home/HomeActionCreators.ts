@@ -9,7 +9,7 @@ import {
     OPEN__MENU,
     EXTEND__PREVIEW,
     UPDATE__VIEWPORT_DIMENSIONS
-} from "./HomeActions";
+} from './HomeActions';
 import { createAction } from "../../../redux/utils/actions";
 
 // r o u t i n g

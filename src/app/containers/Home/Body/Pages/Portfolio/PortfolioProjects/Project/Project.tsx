@@ -166,7 +166,7 @@ export class Project extends React.Component<IProps, IState> {
 
         const easing = 0.15;
 
-        this.scrollHeight = this.innerRef.clientHeight;
+        this.scrollHeight = this.innerRef.clientHeight - this.props.height;
 
         const isMin = posY > 0;
         const isMax = posY < -this.scrollHeight;
@@ -206,7 +206,7 @@ export class Project extends React.Component<IProps, IState> {
         const easing = 0.15;
 
         // const imageNumber = this.props.project.imagePaths.length;
-        this.scrollHeight = this.innerRef.clientHeight;
+        this.scrollHeight = this.innerRef.clientHeight - this.props.height;
 
         const isMin = posY > 0;
         const isMax = posY < -this.scrollHeight;

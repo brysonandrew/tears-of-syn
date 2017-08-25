@@ -62,7 +62,7 @@ export class Letter extends React.Component<IProps, any> {
                 transition: "transform 400ms"
             }
         } as any;
-        console.log(isAnimating);
+
         return (
             <div style={ styles.letter }>
                 {this.columns.map((_, columnIndex) => {

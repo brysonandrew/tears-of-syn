@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IStoreState } from './redux/main_reducer';
+import { IStore } from '../redux/IStore';
 
 interface IProperties {}
 
@@ -21,24 +21,21 @@ export class Empty extends React.Component<IProps, IState> {
 
         } as any;
         return (
-            <div>
-            </div>
+            <div/>
         );
     }
 }
 
 // ------------ redux mappers -------------
 
-
-function mapStateToProps(state: IStoreState, ownProps: IProps): IProperties {
+function mapStateToProps(state: IStore, ownProps: IProps): IProperties {
     return {
     };
-
 }
 
 function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     return {
-    }
+    };
 }
 
 export let EmptyStore = connect(

@@ -9,7 +9,7 @@ import {
     OPEN__MENU,
     EXTEND__PREVIEW,
     UPDATE__VIEWPORT_DIMENSIONS
-} from "./HomeActions";
+} from './HomeActions';
 import { createReducer } from "../../../redux/utils/reducers";
 import { IParams } from "../../../data/models";
 import { breakPointTests } from "../../../data/helpers/breakPoints";

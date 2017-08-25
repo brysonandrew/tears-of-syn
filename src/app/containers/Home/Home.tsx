@@ -31,18 +31,16 @@ interface IProps extends IProperties, ICallbacks {
 }
 
 interface IState extends IProperties, ICallbacks {
-    isMounted: boolean
+
 }
 
 export class Home extends React.Component<IProps, IState> {
 
-    timerId;
+    mountTimeout;
+    idleTimeout;
 
     constructor(props?: any, context?: any) {
         super(props, context);
-        this.state = {
-            isMounted: false
-        };
     }
 
     componentDidMount() {
@@ -62,8 +60,6 @@ export class Home extends React.Component<IProps, IState> {
 
         });
 
-        this.timerId = setTimeout(() => this.setState({ isMounted: true }), 0);
-
         window.addEventListener("resize"
             , () => onResizeViewport(window.innerWidth, window.innerHeight));
         window.addEventListener("load"
@@ -71,30 +67,36 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     componentWillUnmount() {
-        clearTimeout(this.timerId);
+        const { onResizeViewport } = this.props;
+
+        window.removeEventListener("resize"
+            , () => onResizeViewport(window.innerWidth, window.innerHeight));
+        window.removeEventListener("load"
+            , () => onResizeViewport(window.innerWidth, window.innerHeight));
+
     }
 
     render(): JSX.Element {
         const { savedParams } = this.props;
-        const { isMounted } = this.state;
 
         const styles = {
             home: {
                 position: "relative",
                 background: "#eeeeee",
-                overflow: "hidden",
-                opacity: isMounted ? 1 : 0,
-                filter: isMounted ? "none" : "blur(10px)",
-                transition: "opacity 800ms, filter 800ms"
+                overflow: "hidden"
+            },
+            home__pages: {
             }
         } as any;
 
         return (
             <div style={ styles.home }>
                 <ScreenSaver/>
-                <Pages
-                    savedParams={savedParams}
-                />
+                <div style={ styles.home__pages }>
+                    <Pages
+                        savedParams={savedParams}
+                    />
+                </div>
             </div>
         );
     }
