@@ -321,7 +321,7 @@ export class Project extends React.Component<IProps, IState> {
 
         const heightByScroll = ((height + this.elasticBuffer) / this.scrollHeight * (-posY - this.elasticBuffer));
 
-        const topOffset = isMobile ? 200 : isTablet ? 150 : 100;
+        const topOffset = isMobile ? 100 : isTablet ? 50 : 0;
 
         const cursor = isProjectExtended
                             ?   "crosshair"
@@ -355,10 +355,10 @@ export class Project extends React.Component<IProps, IState> {
             project__inner: {
                 position: "relative",
                 display: "inline-block",
-                top: `${isProjectExtended ? 0 : 50}%`,
+                top: posY,
                 paddingTop: isProjectExtended ? 0 : topOffset,
-                transform: `translate3d(0px, ${posY}px, 0px) translate(0px, ${isProjectExtended ? 0 : -50}%)`,
-                transition: "padding 800ms"
+                transform: `translate3d(0px, ${(isProjectExtended ? 0 : 100)}px, 0px)`,
+                transition: "transform 800ms"
             },
             project__image: {
                 position: "relative",

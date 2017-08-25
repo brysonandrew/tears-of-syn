@@ -5,7 +5,7 @@ function PortfolioProject(name, date, photoNumber, link) {
     this.name = name;
     this.path = toPath(this.name);
     this.link = link;
-    this.imagePaths = new Array(photoNumber).fill("").map((_, i) => `/images/Projects/${this.path}/${i}.PNG`);
+    this.imagePaths = Array.apply(null, new Array(photoNumber)).map((_, i) => `/images/Projects/${this.path}/${i}.png`);
     this.date = date;
 }
 
@@ -13,19 +13,19 @@ export const portfolioProjectList: IPortfolioProject[] = [
     new PortfolioProject(
         "Porizi",
         "2016",
-        11,
+        3,
         "http://www.porizi.com/"
     ),
     new PortfolioProject(
         "Coworkz",
         "2017",
-        10,
+        3,
         "https://cb-coworking.herokuapp.com"
     ),
     new PortfolioProject(
         "Gulumjan Consulting",
         "2017",
-        6,
+        1,
         "http://www.gulumjan-consulting.de/"
     )
 ];
