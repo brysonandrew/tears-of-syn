@@ -22,7 +22,9 @@ export class Pages extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        const isParamsChanged = this.props.savedParams.activePagePath && nextProps.savedParams.activePagePath !== this.props.savedParams.activePagePath;
+        const isParamsChanged = this.props.savedParams.activePagePath
+                && nextProps.savedParams.activePagePath
+                !== this.props.savedParams.activePagePath;
         if (isParamsChanged) {
             this.setState({
                 isSwitchingPages: true
@@ -62,8 +64,6 @@ export class Pages extends React.Component<IProps, IState> {
                 zIndex: isSwitchingPages ? 10 : 0
             }
         } as any;
-
-        console.log(isSwitchingPages);
 
         return (
             <div style={ styles.pages }>

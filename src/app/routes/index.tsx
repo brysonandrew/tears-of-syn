@@ -4,9 +4,9 @@ import { App, HomeFromStore } from 'containers';
 import { pageList } from '../../data/content/pages/pages';
 import { labProjectList } from '../../data/content/pages/projects/lab';
 import { portfolioProjectList } from '../../data/content/pages/projects/portfolio';
-import { particlesMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/Projects/Particles/particlesMenu/particlesMenu';
-import { armouryMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/Projects/Armoury/armouryMenu/armouryMenu';
-import { garageMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/Projects/Garage/garageMenu/garageMenu';
+import { particlesMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/WebGL/Projects/Particles/particlesMenu/particlesMenu';
+import { armouryMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/WebGL/Projects/Armoury/armouryMenu/armouryMenu';
+import { garageMenuItemList } from '../containers/Home/Body/Pages/Lab/LabProjects/WebGL/Projects/Garage/garageMenu/garageMenu';
 
 export default (
   <Route path="/" component={App}>

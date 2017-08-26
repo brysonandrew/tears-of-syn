@@ -32,6 +32,7 @@ export interface IPortfolioProject {
 export interface ILabProject {
     name: string
     path: string
+    type: 'webGL' | 'web'
     component: any
     subComponents?: any[]
 }

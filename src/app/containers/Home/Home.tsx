@@ -94,7 +94,7 @@ export class Home extends React.Component<IProps, IState> {
             this.setState({
                 isMounted: false
             });
-        }, 2000); // 300000ms = 5 minutes
+        }, 300000); // 300000ms = 5 minutes
     }
 
     componentWillUnmount() {
