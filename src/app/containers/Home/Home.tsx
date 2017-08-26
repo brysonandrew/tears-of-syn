@@ -27,20 +27,25 @@ interface ICallbacks {
     onArrowNavigate?: (nextParams: IParams) => void
 }
 
-interface IProps extends IProperties, ICallbacks {
-}
+interface IProps extends IProperties, ICallbacks {}
 
 interface IState extends IProperties, ICallbacks {
-
+    isMounted: boolean
 }
 
 export class Home extends React.Component<IProps, IState> {
 
+    activeTimeout;
     mountTimeout;
-    idleTimeout;
+    home;
+    isIdle = true;
 
     constructor(props?: any, context?: any) {
         super(props, context);
+        this.state = {
+            isMounted: false
+        };
+        this.resetIdle = this.resetIdle.bind(this);
     }
 
     componentDidMount() {
@@ -60,43 +65,79 @@ export class Home extends React.Component<IProps, IState> {
 
         });
 
+        this.mountTimeout = setTimeout(() => this.setState({ isMounted: true }), 0);
+
         window.addEventListener("resize"
             , () => onResizeViewport(window.innerWidth, window.innerHeight));
         window.addEventListener("load"
             , () => onResizeViewport(window.innerWidth, window.innerHeight));
+        this.home.addEventListener("mousemove"
+            , this.resetIdle);
+        this.home.addEventListener("click"
+            , this.resetIdle);
+        this.home.addEventListener("scroll"
+            , this.resetIdle);
+    }
+
+    resetIdle() {
+        if (this.isIdle) {
+            this.setState({
+                isMounted: true
+            });
+        }
+        this.isIdle = false;
+        clearTimeout(this.activeTimeout);
+        this.activeTimeout = setTimeout(() => {
+            this.isIdle = true;
+            this.setState({
+                isMounted: false
+            });
+        }, 2000); // 300000ms = 5 minutes
     }
 
     componentWillUnmount() {
         const { onResizeViewport } = this.props;
 
+        if (!!this.activeTimeout) {
+            clearTimeout(this.activeTimeout);
+            this.activeTimeout = false;
+        }
+
         window.removeEventListener("resize"
             , () => onResizeViewport(window.innerWidth, window.innerHeight));
         window.removeEventListener("load"
             , () => onResizeViewport(window.innerWidth, window.innerHeight));
+        this.home.removeEventListener("mousemove"
+            , this.resetIdle);
+        this.home.removeEventListener("click"
+            , this.resetIdle);
+        this.home.removeEventListener("scroll"
+            , this.resetIdle);
 
     }
 
     render(): JSX.Element {
         const { savedParams } = this.props;
+        const { isMounted } = this.state;
 
         const styles = {
             home: {
                 position: "relative",
                 background: "#eeeeee",
                 overflow: "hidden"
-            },
-            home__pages: {
             }
         } as any;
 
         return (
-            <div style={ styles.home }>
-                <ScreenSaver/>
-                <div style={ styles.home__pages }>
-                    <Pages
-                        savedParams={savedParams}
-                    />
-                </div>
+            <div style={ styles.home }
+                 ref={el => el ? (this.home = el) : null}>
+                <Pages
+                    savedParams={savedParams}
+                />
+                {!isMounted
+                    &&  <div>
+                            <ScreenSaver/>
+                        </div>}
             </div>
         );
     }
