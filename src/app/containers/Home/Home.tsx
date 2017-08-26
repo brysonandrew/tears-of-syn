@@ -77,6 +77,8 @@ export class Home extends React.Component<IProps, IState> {
             , this.resetIdle);
         this.home.addEventListener("scroll"
             , this.resetIdle);
+        this.home.addEventListener("wheel"
+            , this.resetIdle);
     }
 
     resetIdle() {
@@ -112,6 +114,8 @@ export class Home extends React.Component<IProps, IState> {
         this.home.removeEventListener("click"
             , this.resetIdle);
         this.home.removeEventListener("scroll"
+            , this.resetIdle);
+        this.home.removeEventListener("wheel"
             , this.resetIdle);
 
     }
