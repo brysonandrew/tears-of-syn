@@ -129,15 +129,22 @@ export class Home extends React.Component<IProps, IState> {
                 position: "relative",
                 background: "#eeeeee",
                 overflow: "hidden"
+            },
+            home__pages: {
+                opacity: isMounted ? 1 : 0,
+                filter: isMounted ? "none" : "blur(10px)",
+                transition: "opacity 1600ms, filter 1600ms"
             }
         } as any;
 
         return (
             <div style={ styles.home }
                  ref={el => el ? (this.home = el) : null}>
-                <Pages
-                    savedParams={savedParams}
-                />
+                <div style={ styles.home__pages }>
+                    <Pages
+                        savedParams={savedParams}
+                    />
+                </div>
                 {!isMounted
                     &&  <div>
                             <ScreenSaver/>
