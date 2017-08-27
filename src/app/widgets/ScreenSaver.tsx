@@ -33,7 +33,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                 width: "100%",
                 height: "100%",
                 background: colors.wht,
-                opacity: isMounted ? 1 : 0,
+                opacity: isMounted ? 1 : 0.5,
                 filter: isMounted ? "none" : "blur(10px)",
                 transition: "opacity 1600ms, filter 1600ms",
                 zIndex: 20
@@ -46,11 +46,11 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             }
         } as any;
         return (
-            (isMounted &&   <div style={styles.screenSaver}>
-                                <div style={styles.screenSaver__inner}>
-                                    <Logo/>
-                                </div>
-                            </div>)
+            <div style={styles.screenSaver}>
+                <div style={styles.screenSaver__inner}>
+                    <Logo/>
+                </div>
+            </div>
         );
     }
 }
