@@ -11,7 +11,7 @@ import { garageMenuItemList } from '../../../../app/containers/Home/Body/Pages/L
 import { IntroFromStore } from '../../../../app/containers/Home/Body/Pages/Lab/LabProjects/Intro/Intro';
 import { IDictionary, ILabProject } from '../../../models';
 import { toPath } from '../../../helpers/toPath';
-import { BasicBaby } from '../../../../app/containers/Home/Body/Pages/Lab/LabProjects/ReactMotion/BasicBaby';
+import { BasicMotion } from '../../../../app/containers/Home/Body/Pages/Lab/LabProjects/ReactMotion/BasicMotion';
 
 function LabProject(name, technologies, component, subComponents?) {
     this.name = name;
@@ -28,9 +28,9 @@ export const labProjectList: ILabProject[] = [
         <IntroFromStore/>
     ),
     new LabProject(
-        "Basic Baby",
+        "Basic Motion",
         ['React Motion'],
-        <BasicBaby/>
+        <BasicMotion/>
     ),
     new LabProject(
         "Spotlight",

@@ -8,7 +8,7 @@ interface IState {
     isOpen: boolean
 }
 
-export class BasicBaby extends React.Component<IProps, IState> {
+export class BasicMotion extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -27,16 +27,16 @@ export class BasicBaby extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const styles = {
-            basicBaby: {
+            basicMotion: {
                 position: "relative",
                 height: "100vh"
             },
-            basicBaby__button: {
+            basicMotion__button: {
                 position: "relative",
                 zIndex: 10,
                 cursor: "pointer"
             },
-            basicBaby__outer: {
+            basicMotion__outer: {
                 position: "absolute",
                 width: "100vw",
                 top: "50%",
@@ -47,7 +47,7 @@ export class BasicBaby extends React.Component<IProps, IState> {
                 height: 50,
                 transform: "translate(-50%, -50%)"
             },
-            basicBaby__inner: {
+            basicMotion__inner: {
                 position: "absolute",
                 width: 50,
                 height: 50,
@@ -56,9 +56,9 @@ export class BasicBaby extends React.Component<IProps, IState> {
             }
         } as any;
         return (
-            <div style={styles.basicBaby}>
+            <div style={styles.basicMotion}>
                 <button
-                    style={styles.basicBaby__button}
+                    style={styles.basicMotion__button}
                     onMouseDown={this.handleMouseDown}
                     onTouchStart={this.handleTouchStart}>
                     Toggle
@@ -67,9 +67,9 @@ export class BasicBaby extends React.Component<IProps, IState> {
                     {({x}) =>
                         // children is a callback which should accept the current value of
                         // `style`
-                        <div style={styles.basicBaby__outer}>
+                        <div style={styles.basicMotion__outer}>
                             <div style={{
-                                ...styles.basicBaby__inner,
+                                ...styles.basicMotion__inner,
                                 WebkitTransform: `translate3d(${x}px, 0, 0)`,
                                 transform: `translate3d(${x}vw, 0, 0) translateX(-${x}%)`}} />
                         </div>
