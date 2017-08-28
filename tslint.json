@@ -43,7 +43,7 @@
       true,
       "spaces"
     ],
-    "semicolon": [true, "always", "ignore-interfaces"],
+    "semicolon": false,
     "quotemark": [
       true,
       "jsx-double"

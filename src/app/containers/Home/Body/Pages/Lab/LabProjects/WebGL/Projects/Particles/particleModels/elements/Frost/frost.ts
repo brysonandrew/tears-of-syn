@@ -3,11 +3,12 @@ import THREE = require('three');
 export class Frost {
 
     cluster = new THREE.Group;
-    gravity = 0.1;
+    gravity = 0.015;
+    maxLife = 200;
 
     addCluster() {
-        const amount = 100;
-        const radius = 200;
+        const amount = 1000;
+        const radius = 100;
 
         const positions = new Float32Array( amount * 3 );
         const colors = new Float32Array( amount * 3 );
@@ -22,7 +23,7 @@ export class Frost {
             vertex.z = (Math.random() * 2 - 1) * radius;
             (vertex as any).toArray(positions, i);
 
-            sizes[i] = 5 + 5 * Math.random();
+            sizes[i] = 5 + 5 * Math.random() * 0.00001;
 
             color.setHSL(0, 1, 1);
             (color as any).toArray(colors, i * 3);
@@ -76,11 +77,11 @@ export class Frost {
 
         this.cluster.children.forEach((spark, i) => {
 
-            spark.position.x += Math.cos(spark["life"]);
+            spark.position.x += Math.cos(spark["life"]) * 0.0001;
             spark.position.y -= spark["life"] * this.gravity;
-            spark.position.z += Math.sin(spark["life"]);
+            spark.position.z += Math.sin(spark["life"]) * 0.0001;
 
-            if (spark["life"] === 50) {
+            if (spark["life"] === this.maxLife) {
                 this.cluster.children.splice(i, 1);
             }
             spark["life"]++;

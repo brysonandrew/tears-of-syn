@@ -87,13 +87,13 @@ export class MenuButton extends React.Component<IProps, IState> {
                  onMouseEnter={() => this.handleMouseEnter()}
                  onMouseLeave={() => this.handleMouseLeave()}>
                 {styles.menuButton__lines.map((style, i) =>
-                    <div key={i}
-                         style={ Object.assign({}, styles.menuButton__line, {
+                    <div key={`line-${i}`}
+                         style={{...styles.menuButton__line,
                             top: style.top,
                             left: `${style.left}%`,
                             width: `${style.width}%`,
                             transform: `scaleX(${style.scale}) rotate(${style.rotate}deg)`
-                    }) }/> )}
+                    }}/> )}
             </div>
         );
     }

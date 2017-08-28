@@ -15,36 +15,37 @@ export default (
     {/*pages*/}
     {pageList.map((page, i) =>
       <Route
-        key={i}
+        key={`pages-${i}`}
         path={page.path}
         component={HomeFromStore} />)}
 
     {/*projects*/}
     {portfolioProjectList.map((project, i) =>
       <Route
-        key={i}
+        key={`portfolio-projects-${i}`}
         path={`portfolio/${project.path}`}
         component={HomeFromStore} />)}
+
+    {/*labs*/}
     {labProjectList.map((project, i) =>
       <Route
-        key={i}
+        key={`lab-projects-${i}`}
         path={`lab/${project.path}`}
         component={HomeFromStore} />)}
-
     {/*views*/}
     {particlesMenuItemList.map((view, i) =>
       <Route
-        key={i}
+        key={`views-${i}`}
         path={`lab/particles/${view.path}`}
         component={HomeFromStore} />)}
     {armouryMenuItemList.map((view, i) =>
       <Route
-        key={i}
+        key={`armoury-views-${i}`}
         path={`lab/armoury/${view.path}`}
         component={HomeFromStore} />)}
     {garageMenuItemList.map((view, i) =>
       <Route
-        key={i}
+        key={`garage-views-${i}`}
         path={`lab/garage/${view.path}`}
         component={HomeFromStore} />)}
 

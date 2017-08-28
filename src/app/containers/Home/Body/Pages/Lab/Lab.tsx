@@ -143,7 +143,14 @@ export class Lab extends React.Component<IProps, IState> {
                 position: 'absolute',
                 top: "2vh",
                 right: "2vw",
-                zIndex: 4
+                zIndex: 4,
+                cursor: "pointer"
+            },
+            lab__backText: {
+                position: 'absolute',
+                left: "-100%",
+                top: "50%",
+                transform: "translateY(-50%)"
             },
             lab__page: {
                 position: 'absolute',
@@ -173,7 +180,7 @@ export class Lab extends React.Component<IProps, IState> {
                             </div>
                             <div style={ styles.lab__back }
                                  onClick={Lab.handleBackClick}>
-                                back
+                                <span style={styles.lab__backText}>back</span>
                                 <MenuButton
                                     isACross={true}
                                     onClick={Lab.handleBackClick}

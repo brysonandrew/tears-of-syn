@@ -76,9 +76,9 @@ export class Snow {
 
         this.cluster.children.forEach((spark, i) => {
 
-            spark.position.x += Math.cos(spark["life"]);
-            spark.position.y -= spark["life"] * this.gravity;
-            spark.position.z += Math.sin(spark["life"]);
+            spark.position.x += Math.cos(spark["life"]) * 0.25;
+            spark.position.y -= spark["life"] * this.gravity * 0.25;
+            spark.position.z += Math.sin(spark["life"]) * 0.25;
 
             if (spark["life"] === 50) {
                 this.cluster.children.splice(i, 1);

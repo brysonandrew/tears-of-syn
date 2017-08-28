@@ -52,12 +52,14 @@ export class IntroItem extends React.Component<IProps, IState> {
             introItem__name: {
                 display: "inline-block",
                 padding: "0 10px",
-                color: isHovered ? colors.blk : colors.std
+                color: isHovered ? colors.gry : colors.std
             },
             introItem__technologies: {
                 display: "inline-block",
                 fontSize: 18,
+                borderRight: isHovered ? `4px solid ${colors.gry}` : "none",
                 padding: "0 10px",
+                color: isHovered ? colors.gry : colors.std,
                 opacity: 0.5
             },
             introItem__underline: {
@@ -66,7 +68,7 @@ export class IntroItem extends React.Component<IProps, IState> {
                 bottom: 0,
                 height: 4,
                 width: 320,
-                background: colors.blk,
+                background: colors.gry,
                 transform: `translateX(${isHovered ? 0 : -50}%) scaleX(${isHovered ? 1 : 0})`,
                 transition: "transform 200ms"
             }
