@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { labProjectList } from '../../../../../../../../data/content/pages/projects/lab';
-import { Link } from 'react-router';
 import { colors } from '../../../../../../../../data/themeOptions';
 import { fontSize } from '../../../../../../../../data/helpers/breakPoints';
+import { IntroItem } from './IntroItem';
+import { ILabProject } from '../../../../../../../../data/models';
 
 interface IProps {
     isMobile: boolean
@@ -19,12 +20,8 @@ export class IntroContents extends React.Component<IProps, IState> {
         super(props, context);
     }
 
-    handleClick(i) {
-        this.props.onProjectClick(i);
-    }
-
     render(): JSX.Element {
-        const { isMobile, isTablet, isLaptop } = this.props;
+        const { isMobile, isTablet, isLaptop, onProjectClick } = this.props;
         const styles = {
             introContents: {
                 display: "inline-block",
@@ -40,15 +37,15 @@ export class IntroContents extends React.Component<IProps, IState> {
         };
         return (
             <div style={styles.introContents}>
-                {labProjectList.map((item, i) =>
+                {labProjectList.map((item: ILabProject, i) =>
                     item.path !== "intro"
                     &&
-                    <Link key={i}
-                          to={`/lab/${item.path}`}
-                          onClick={() => this.handleClick(i)}
-                          style={styles.introContents__item}>
-                        {item.name}
-                    </Link>)}
+                    <IntroItem
+                        key={i}
+                        index={i}
+                        item={item}
+                        onClick={onProjectClick}
+                    />)}
             </div>
         );
     }

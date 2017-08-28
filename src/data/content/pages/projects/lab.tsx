@@ -12,10 +12,10 @@ import { IntroFromStore } from '../../../../app/containers/Home/Body/Pages/Lab/L
 import { IDictionary, ILabProject } from '../../../models';
 import { toPath } from '../../../helpers/toPath';
 
-function LabProject(name, type, component, subComponents?) {
+function LabProject(name, technologies, component, subComponents?) {
     this.name = name;
     this.path = toPath(this.name);
-    this.type = type;
+    this.technologies = technologies;
     this.subComponents = subComponents;
     this.component = component;
 }
@@ -28,34 +28,34 @@ export const labProjectList: ILabProject[] = [
     ),
     new LabProject(
         "Spotlight",
-        'webGL',
+        ['THREE.js'],
         <SpotlightFromStore/>
     ),
     new LabProject(
         "Cruising",
-        'webGL',
+        ['THREE.js'],
         <CruisingFromStore/>
     ),
     new LabProject(
         "FPS",
-        'webGL',
+        ['THREE.js'],
         <FPSFromStore/>
     ),
     new LabProject(
         "Particles",
-        'webGL',
+        ['THREE.js'],
         <ParticlesFromStore/>,
         particlesMenuItemList
     ),
     new LabProject(
         "Armoury",
-        'webGL',
+        ['THREE.js'],
         <ArmouryFromStore/>,
         armouryMenuItemList
     ),
     new LabProject(
         "Garage",
-        'webGL',
+        ['THREE.js'],
         <GarageFromStore/>,
         garageMenuItemList
     )
