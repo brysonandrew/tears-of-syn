@@ -48,7 +48,7 @@ export class Portfolio extends React.Component<IProps, IState> {
             onAnimationStart();
         }
 
-        this.timerId = setTimeout(() => this.setState({ isMounted: true }), 0);
+        this.timerId = setTimeout(() => this.setState({ isMounted: true }), 800);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -79,11 +79,15 @@ export class Portfolio extends React.Component<IProps, IState> {
             isLaptop,
             isPreviewExtended
         } = this.props;
+        const { isMounted } = this.state;
 
         const styles = {
             portfolio__projects: {
                 position: "relative",
-                zIndex: 2
+                zIndex: 2,
+                opacity: isMounted ? 1 : 0,
+                filter: isMounted ? "none" : "blur(10px)",
+                transition: "opacity 1600ms, filter 1600ms"
             },
             portfolio__heading: {
                 position: "fixed",

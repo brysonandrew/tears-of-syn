@@ -52,7 +52,7 @@ export class Lab extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-        this.timeoutId = setTimeout(() => this.setState({ isMounted: true }), 0);
+        this.timeoutId = setTimeout(() => this.setState({ isMounted: true }), 800);
 
         window.addEventListener('keypress', this.handleKeyPress);
         window.addEventListener('keyup', this.handleKeyUp);
@@ -121,7 +121,10 @@ export class Lab extends React.Component<IProps, IState> {
                 top: 0,
                 left: 0,
                 width: "100%",
-                height: `100vh`
+                height: "100vh",
+                opacity: isMounted ? 1 : 0,
+                filter: isMounted ? "none" : "blur(10px)",
+                transition: "opacity 1600ms, filter 1600ms"
             },
             lab__heading: {
                 position: 'absolute',

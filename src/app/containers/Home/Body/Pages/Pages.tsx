@@ -22,9 +22,8 @@ export class Pages extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        const isParamsChanged = this.props.savedParams.activePagePath
-                && nextProps.savedParams.activePagePath
-                !== this.props.savedParams.activePagePath;
+        const isActivePagePathChanged = nextProps.savedParams.activePagePath !== this.props.savedParams.activePagePath;
+        const isParamsChanged = this.props.savedParams.activePagePath && isActivePagePathChanged;
         if (isParamsChanged) {
             this.setState({
                 isSwitchingPages: true
@@ -55,13 +54,13 @@ export class Pages extends React.Component<IProps, IState> {
                 left: 0,
                 top: 0,
                 width: "100%",
-                height: "300%",
+                height: "100%",
                 background: (isPortfolio && !isSwitchingPages)
                         ? "transparent"
-                        : `linear-gradient(to bottom, #eeeeee 0%, ${colors.std} 50%, #eeeeee 100%)`,
-                transform: `translateY(${isPortfolio ? 0 : -100}%)`,
-                transition: "transform 800ms",
-                zIndex: isSwitchingPages ? 10 : 0
+                        : colors.std,
+                transform: `translateY(${isPortfolio ? 100 : -100}%)`,
+                transition: "transform 1600ms",
+                zIndex: 10
             }
         } as any;
 

@@ -39,6 +39,7 @@ export class Home extends React.Component<IProps, IState> {
     mountTimeout;
     home;
     isIdle = true;
+    isFirstRender = true;
 
     constructor(props?: any, context?: any) {
         super(props, context);
@@ -50,6 +51,8 @@ export class Home extends React.Component<IProps, IState> {
 
     componentDidMount() {
         const { onResizeViewport, onLocationListen, onLoad } = this.props;
+
+        this.isFirstRender = false;
  // reset window pos
         window.scroll(0, 0);
 
@@ -147,7 +150,9 @@ export class Home extends React.Component<IProps, IState> {
                 </div>
                 {!isMounted
                     &&  <div>
-                            <ScreenSaver/>
+                            <ScreenSaver
+                                isFirstRender={this.isFirstRender}
+                            />
                         </div>}
             </div>
         );
