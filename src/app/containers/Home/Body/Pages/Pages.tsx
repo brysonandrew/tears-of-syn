@@ -1,75 +1,156 @@
 import * as React from 'react';
-import { pages } from '../../../../../data/content/pages/pages';
-import { IParams } from '../../../../../data/models';
-import { colors } from '../../../../../data/themeOptions';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { ProjectsFromStore } from './PortfolioProjects/Projects';
+import { BottomNavigationMenu } from './PorfolioProjectsMenu/BottomNavigationMenu/BottomNavigationMenu';
+import { IParams } from '../../../../../../data/models';
+import { toggleScrollAnimation } from '../../../HomeActionCreators';
+import { HeadingFromStore } from './PortfolioProjects/Heading/Heading';
+import { IStore } from '../../../../../../redux/IStore';
 
-interface IProps {
-    savedParams: IParams
+interface IProperties {
+    savedParams?: IParams
+    isMobile?: boolean
+    isTablet?: boolean
+    isLaptop?: boolean
+    isPreviewExtended?: boolean
+    width?: number
+    height?: number
 }
 
-interface IState {
-    isSwitchingPages: boolean
+interface ICallbacks {
+    onArrowNavigate?: (nextParams: IParams) => void
+    onAnimationStart?: () => void
 }
 
-export class Pages extends React.Component<IProps, IState> {
+interface IProps extends IProperties, ICallbacks {
+}
+
+interface IState extends IProperties, ICallbacks {
+    isMounted: boolean
+}
+
+export class Portfolio extends React.Component<IProps, IState> {
+
+    timerId;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            isSwitchingPages: false
+            isMounted: false
         };
-        this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
+    }
+
+    componentDidMount() {
+        const { savedParams, onAnimationStart } = this.props;
+
+        if (savedParams.activeProjectPath) {
+            onAnimationStart();
+        }
+
+        this.timerId = setTimeout(() => this.setState({ isMounted: true }), 800);
     }
 
     componentWillReceiveProps(nextProps) {
-        const isActivePagePathChanged = nextProps.savedParams.activePagePath !== this.props.savedParams.activePagePath;
-        const isParamsChanged = this.props.savedParams.activePagePath && isActivePagePathChanged;
-        if (isParamsChanged) {
-            this.setState({
-                isSwitchingPages: true
-            });
+        const isProjectPathChanged = nextProps.savedParams.activeProjectPath !== this.props.savedParams.activeProjectPath;
+        const isProjectPathChangedAndEmpty = !nextProps.savedParams.activeProjectPath && isProjectPathChanged;
+        const isPagePathChangedAndEmpty = !nextProps.savedParams.activePagePath && isProjectPathChanged;
+
+        if (isProjectPathChanged
+            || isProjectPathChangedAndEmpty
+            || isPagePathChangedAndEmpty) {
+            nextProps.onAnimationStart();
         }
     }
 
-    handleTransitionEnd() {
-        this.setState({
-            isSwitchingPages: false
-        });
+    componentWillUnmount() {
+        clearTimeout(this.timerId);
+    }
+
+    static handleArrowNavigation(nextPath) {
+        browserHistory.push(nextPath);
     }
 
     render(): JSX.Element {
-        const { savedParams } = this.props;
-        const { isSwitchingPages } = this.state;
-
-        const activePagePath = savedParams.activePagePath ? savedParams.activePagePath : "portfolio";
-        const isPortfolio = activePagePath === "portfolio";
-        const component = pages[activePagePath].component;
+        const {
+            savedParams,
+            isMobile,
+            isTablet,
+            isLaptop,
+            isPreviewExtended
+        } = this.props;
+        const { isMounted } = this.state;
 
         const styles = {
-            pages: {
-                position: "relative"
+            portfolio__projects: {
+                position: "relative",
+                zIndex: 2,
+                opacity: isMounted ? 1 : 0,
+                filter: isMounted ? "none" : "blur(10px)",
+                transition: "opacity 1600ms, filter 1600ms"
             },
-            pages__slider: {
-                position: "absolute",
-                left: 0,
+            portfolio__heading: {
+                position: "fixed",
                 top: 0,
+                left: 0,
                 width: "100%",
-                height: "100%",
-                background: (isPortfolio && !isSwitchingPages)
-                        ? "transparent"
-                        : colors.std,
-                transform: `translateY(${isPortfolio ? 100 : -100}%)`,
-                transition: "transform 1600ms",
-                zIndex: 10
+                opacity:  isPreviewExtended ? 0.4 : 1,
+                filter: `grayscale(${isPreviewExtended ? 100 : 0}%) blur(${isPreviewExtended ? 2 : 0}px)`,
+                zIndex: isPreviewExtended ? 0 : 4,
+                transition: "filter 400ms, opacity 400ms",
+                cursor: "pointer"
+            },
+            portfolio__bottomNav: {
+                position: "fixed",
+                bottom: isTablet ? 0 : 80,
+                width: "100%",
+                zIndex: 2
             }
         } as any;
-
         return (
-            <div style={ styles.pages }>
-                <div style={ styles.pages__slider }
-                     onTransitionEnd={this.handleTransitionEnd}/>
-                {component}
+            <div>
+                <div style={ styles.portfolio__heading}>
+                    <HeadingFromStore/>
+                </div>
+                <div style={ styles.portfolio__projects}>
+                    <ProjectsFromStore/>
+                </div>
+                <div style={ styles.portfolio__bottomNav }>
+                    <BottomNavigationMenu
+                        onArrowNavigation={Portfolio.handleArrowNavigation}
+                        savedParams={savedParams}
+                        isMobile={isMobile}
+                        isTablet={isTablet}
+                        isLaptop={isLaptop}
+                    />
+                </div>
             </div>
         );
     }
 }
+
+// ------------ redux mappers -------------
+
+function mapStateToProps(state: IStore): IProperties {
+    return {
+        height: state.homeStore.height,
+        width: state.homeStore.width,
+        isMobile: state.homeStore.isMobile,
+        isTablet: state.homeStore.isTablet,
+        isLaptop: state.homeStore.isLaptop,
+        isPreviewExtended: state.homeStore.isPreviewExtended,
+        savedParams: state.homeStore.savedParams
+    };
+}
+
+function mapDispatchToProps(dispatch): ICallbacks {
+    return {
+        onAnimationStart: () => {
+            dispatch(toggleScrollAnimation(true));
+        }
+    };
+}
+
+export const PortfolioFromStore = connect(
+    mapStateToProps, mapDispatchToProps
+)(Portfolio);

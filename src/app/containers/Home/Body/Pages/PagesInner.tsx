@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { portfolioProjectList, portfolioProjects } from '../../../../../../../data/content/pages/projects/portfolio';
+import { portfolioProjectList, portfolioPagesInner } from '../../../../../../../data/content/pages/PagesInner/portfolio';
 import { IParams, IDictionary } from "../../../../../../../data/models";
 import { togglePreview, toggleScrollAnimation, toggleWheel } from '../../../../HomeActionCreators';
 import { MotionScroll } from "../../../../../../widgets/MotionScroll/MotionScroll";
@@ -34,7 +34,7 @@ interface IState extends IProperties, ICallbacks {
     isMounted?: boolean
 }
 
-export class Projects extends React.Component<IProps, IState> {
+export class PagesInner extends React.Component<IProps, IState> {
 
     timeoutId;
     timeoutStopDelay = 50;
@@ -91,10 +91,10 @@ export class Projects extends React.Component<IProps, IState> {
         const { savedParams } = this.props;
 
         const approachingProjectBuffer = 200;
-        const projectsScrolledPastOffsets = this.projectOffsetList().filter(offset => (offset - approachingProjectBuffer) < window.scrollY);
+        const PagesInnerScrolledPastOffsets = this.projectOffsetList().filter(offset => (offset - approachingProjectBuffer) < window.scrollY);
 
-        const currentIndex = projectsScrolledPastOffsets.length > 0
-                                ?   projectsScrolledPastOffsets.length - 1
+        const currentIndex = PagesInnerScrolledPastOffsets.length > 0
+                                ?   PagesInnerScrolledPastOffsets.length - 1
                                 :   -1;
 
         if (currentIndex > -1 && portfolioProjectList[currentIndex].path !== savedParams.activeProjectPath) {
@@ -134,23 +134,23 @@ export class Projects extends React.Component<IProps, IState> {
                                     :   portfolioProjectList[0].path;
 
         const scrollHeight = width * (portfolioProjectList.length - 1);
-        const widthMarginFactor = Projects.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
+        const widthMarginFactor = PagesInner.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
         const widthMargin = widthMarginFactor * width;
         const adjustedWidth = width - widthMargin * 2;
         const adjustedScroll = docScroll - (widthMarginFactor * docScroll * 2);
 
         const styles = {
-            projects: {
+            PagesInner: {
                 position: "relative",
                 height: height + scrollHeight
             },
-            projects__inner: {
+            PagesInner__inner: {
                 position: "fixed",
                 left: widthMargin,
                 top: 0,
                 width: portfolioProjectList.length * adjustedWidth
             },
-            projects__project: {
+            PagesInner__project: {
                 display: "inline-block",
                 position: "relative",
                 verticalAlign: "top",
@@ -161,7 +161,7 @@ export class Projects extends React.Component<IProps, IState> {
         } as any;
 
         return (
-            <div style={ styles.projects }>
+            <div style={ styles.PagesInner }>
                 {isPreviewExtended
                 &&  <ProjectOptions
                         isMobile={isMobile}
@@ -170,7 +170,7 @@ export class Projects extends React.Component<IProps, IState> {
                         activeProjectPath={activeProjectPath}
                         onBackClick={onBackClick}
                     />}
-                <div style={ styles.projects__inner }>
+                <div style={ styles.PagesInner__inner }>
                     {!!this.projectOffsets() && <MotionScroll
                                                     docScroll={docScroll}
                                                     isAnimating={isAnimating}
@@ -179,7 +179,7 @@ export class Projects extends React.Component<IProps, IState> {
                                                 />}
                     {portfolioProjectList.map((project, i) =>
                         <div key={i}
-                             style={ styles.projects__project }>
+                             style={ styles.PagesInner__project }>
                             <ProjectFromStore
                                 index={i}
                                 project={project}
@@ -225,6 +225,6 @@ function mapDispatchToProps(dispatch, ownProps: IProps): ICallbacks {
     };
 }
 
-export let ProjectsFromStore = connect(
+export let PagesInnerFromStore = connect(
     mapStateToProps, mapDispatchToProps
-)(Projects);
+)(PagesInner);

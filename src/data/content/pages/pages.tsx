@@ -1,44 +1,36 @@
-import * as React from 'react';
-import { IPage } from '../../models';
-import { toPath } from "../../helpers/toPath";
-import { IDictionary, ISocialMediaSelector } from "../../models";
-import { PortfolioFromStore } from '../../../app/containers/Home/Body/Pages/Portfolio/Portfolio';
-import { LabFromStore } from '../../../app/containers/Home/Body/Pages/Lab/Lab';
+import { toPath } from '../../../helpers/toPath';
+import { IDictionary, IPortfolioProject } from '../../../models';
 
-function Page(name, component) {
+function PortfolioProject(name, date, photoNumber, link) {
     this.name = name;
     this.path = toPath(this.name);
-    this.component = component;
+    this.link = link;
+    this.imagePaths = Array.apply(null, new Array(photoNumber)).map((_, i) => `/images/Projects/${this.path}/${i}.png`);
+    this.date = date;
 }
 
-export const pageList: IPage[] = [
-    new Page(
-        "Portfolio",
-        <PortfolioFromStore/>
-
+export const portfolioProjectList: IPortfolioProject[] = [
+    new PortfolioProject(
+        "Porizi",
+        "2016",
+        3,
+        "http://www.porizi.com/"
     ),
-    new Page(
-        "Lab",
-        <LabFromStore/>
+    new PortfolioProject(
+        "Coworkz",
+        "2017",
+        3,
+        "https://cb-coworking.herokuapp.com"
+    ),
+    new PortfolioProject(
+        "Gulumjan Consulting",
+        "2017",
+        1,
+        "http://www.gulumjan-consulting.de/"
     )
 ];
 
-export const pages: IDictionary<IPage> = pageList.reduce((acc, curr) => {
+export const portfolioProjects: IDictionary<IPortfolioProject> = portfolioProjectList.reduce((acc, curr) => {
     acc[toPath(curr.name)] = curr;
     return acc;
 }, {});
-
-export const headingMenuLeft: ISocialMediaSelector[] = [
-    {
-        name: "medium link",
-        link: "https://medium.com/@codebroio",
-        icon: "/images/Home/social media/medium.png",
-        label: "blog"
-    },
-    {
-        name: "youtube link",
-        link: "https://www.youtube.com/channel/UCF1SvsAZTJL4Bw9qj0hdNLA",
-        icon: "/images/Home/social media/youtube.png",
-        label: "vlog"
-    }
-];
