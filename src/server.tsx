@@ -7,14 +7,13 @@ import 'isomorphic-fetch';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
-import { Provider } from 'react-redux';
-import { createMemoryHistory, match } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-const { ReduxAsyncConnect, loadOnServer } = require('redux-connect');
-import { configureStore } from './redux/store';
+import { Provider } from 'mobx-react';
+import { createMemoryHistory, match, RouterContext } from 'react-router';
+import { MobxAsyncConnect, loadOnServer, store as mobxAsyncConnect } from 'mobx-async-connect';
 import routes from './app/routes';
 
 import { Html } from './app/containers';
+import {default as HomeStore} from './mobx/stores/HomeStore';
 const manifest = require('../build/manifest.json');
 
 const express = require('express');
@@ -53,31 +52,26 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static('./assets/images'));
 
 app.get('*', (req, res) => {
-  const location = req.url;
-  const memoryHistory = createMemoryHistory(req.originalUrl);
-  const store = configureStore(memoryHistory);
-  const history = syncHistoryWithStore(memoryHistory, store);
+    const location = req.url;
+    const history = createMemoryHistory(req.originalUrl);
+    const homeStore = new HomeStore();
 
-  match({ history, routes, location },
+    match({ history, routes, location },
     (error, redirectLocation, renderProps) => {
-      if (error) {
+    if (error) {
         res.status(500).send(error.message);
-      } else if (redirectLocation) {
+    } else if (redirectLocation) {
         res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-      } else if (renderProps) {
-        const asyncRenderData = Object.assign({}, renderProps, { store });
-
-        loadOnServer(asyncRenderData).then(() => {
-          const markup = ReactDOMServer.renderToString(
-            <Provider store={store} key="provider">
-              <ReduxAsyncConnect {...renderProps} />
+    } else if (renderProps) {
+        const markup = ReactDOMServer.renderToString(
+            <Provider store={homeStore} key="provider">
+                <RouterContext {...renderProps} />
             </Provider>,
-          );
-          res.status(200).send(renderHTML(markup, store));
-        });
-      } else {
-        res.status(404).send('Not Found?');
-      }
+        );
+        res.status(200).send(renderHTML(markup, homeStore));
+        } else {
+            res.status(404).send('Not Found?');
+        }
     });
 });
 
@@ -92,9 +86,9 @@ app.listen(appConfig.port, (err) => {
 });
 
 function renderHTML(markup: string, store: any) {
-  const html = ReactDOMServer.renderToString(
+    const html = ReactDOMServer.renderToString(
     <Html markup={markup} manifest={manifest} store={store} />,
-  );
+    );
 
-  return `<!doctype html> ${html}`;
+    return `<!doctype html> ${html}`;
 }

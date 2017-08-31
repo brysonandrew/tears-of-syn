@@ -15,8 +15,7 @@ export class Empty extends React.Component<IProps, IState> {
 
         } as any;
         return (
-            <div>
-            </div>
+            <div/>
         );
     }
 }

@@ -1,32 +1,29 @@
 import * as e6p from 'es6-promise';
-(e6p as any).polyfill();
+(e6p as any).polyfill(); // isomorphic-fetch requires an es6 compatible polyfill
 import 'isomorphic-fetch';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-const { Router, browserHistory } = require('react-router');
-import { syncHistoryWithStore } from 'react-router-redux';
-const { ReduxAsyncConnect } = require('redux-connect');
-import { configureStore } from './redux/store';
+import { Provider } from 'mobx-react';
+import { Router, browserHistory } from 'react-router';
 import 'isomorphic-fetch';
 import routes from './app/routes';
+import HomeStore from './mobx/stores/HomeStore';
 
-const store = configureStore(
-  browserHistory,
-  window.__INITIAL_STATE__,
-);
-const history = syncHistoryWithStore(browserHistory, store);
-const connectedCmp = (props) => <ReduxAsyncConnect {...props} />;
+declare var window: {
+    __INITIAL_STATE__: any,
+    location: {
+        pathname: string
+    }
+};
+
+const homeStore = new HomeStore(window.__INITIAL_STATE__);
 
 ReactDOM.render(
-  <Provider store={store} key="provider">
-    <Router
-      history={history}
-      render={connectedCmp}
-    >
-      {routes}
-    </Router>
+  <Provider store={homeStore} key="provider">
+      <Router history={browserHistory}>
+          {routes}
+      </Router>
   </Provider>,
   document.getElementById('app'),
 );

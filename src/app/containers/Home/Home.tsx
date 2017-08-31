@@ -1,38 +1,24 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
-import { IParams } from "../../../data/models";
-import { IStore } from '../../../redux/IStore';
 import { Pages } from './Body/Pages/Pages';
 import { browserHistory } from 'react-router';
 import { ScreenSaver } from '../../widgets/ScreenSaver';
 import { toParams } from "../../../data/helpers/toParams";
-import { changeViewportDimensions, saveParams, toggleScrollAnimation } from './HomeActionCreators';
+import { inject, observer } from 'mobx-react';
+import HomeStore from '../../../mobx/stores/HomeStore';
 
-interface IProperties {
-    savedParams?: IParams
-    savedLocation?: Location
-    isPreviewExtended?: boolean
-    isMobile?: boolean
-    isTablet?: boolean
-    isLaptop?: boolean
-    width?: number
-    height?: number
-}
+interface IProps {}
 
-interface ICallbacks {
-    onLocationListen?: (nextParams: IParams) => void
-    onLoad?: (nextParams: IParams) => void
-    onResizeViewport?: (width: number, height: number) => void
-    onArrowNavigate?: (nextParams: IParams) => void
-}
-
-interface IProps extends IProperties, ICallbacks {}
-
-interface IState extends IProperties, ICallbacks {
+interface IState {
     isMounted: boolean
 }
 
+interface IProps {
+    store?: HomeStore<string>
+}
+
+@inject('store')
+@observer
 export class Home extends React.Component<IProps, IState> {
 
     activeTimeout;
@@ -46,14 +32,13 @@ export class Home extends React.Component<IProps, IState> {
         this.state = {
             isMounted: false
         };
-        this.resetIdle = this.resetIdle.bind(this);
     }
 
     componentDidMount() {
-        const { onResizeViewport, onLocationListen, onLoad } = this.props;
-
+        const { onResizeViewport, onLocationListen, onLoad } = this.props.store;
+        console.log("mounted");
         this.isFirstRender = false;
- // reset window pos
+        // reset window pos
         window.scroll(0, 0);
 
         const history = createHistory();
@@ -84,7 +69,7 @@ export class Home extends React.Component<IProps, IState> {
             , this.resetIdle);
     }
 
-    resetIdle() {
+    resetIdle = () => {
         if (this.isIdle) {
             this.setState({
                 isMounted: true
@@ -98,10 +83,10 @@ export class Home extends React.Component<IProps, IState> {
                 isMounted: false
             });
         }, 300000); // 300000ms = 5 minutes
-    }
+    };
 
     componentWillUnmount() {
-        const { onResizeViewport } = this.props;
+        const { onResizeViewport } = this.props.store;
 
         if (!!this.activeTimeout) {
             clearTimeout(this.activeTimeout);
@@ -124,9 +109,9 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        const { savedParams } = this.props;
         const { isMounted } = this.state;
 
+        console.log(this.props.store.savedParams.get("activePagePath"));
         const styles = {
             home: {
                 position: "relative",
@@ -144,9 +129,7 @@ export class Home extends React.Component<IProps, IState> {
             <div style={ styles.home }
                  ref={el => el ? (this.home = el) : null}>
                 <div style={ styles.home__pages }>
-                    <Pages
-                        savedParams={savedParams}
-                    />
+                    <Pages/>
                 </div>
                 {!isMounted
                     &&  <div>
@@ -158,40 +141,3 @@ export class Home extends React.Component<IProps, IState> {
         );
     }
 }
-
-// ------------ redux mappers -------------
-
-function mapStateToProps(state: IStore): IProperties {
-    return {
-        height: state.homeStore.height,
-        width: state.homeStore.width,
-        isMobile: state.homeStore.isMobile,
-        isTablet: state.homeStore.isTablet,
-        isLaptop: state.homeStore.isLaptop,
-        isPreviewExtended: state.homeStore.isPreviewExtended,
-        savedLocation: state.homeStore.savedLocation,
-        savedParams: state.homeStore.savedParams
-    };
-}
-
-function mapDispatchToProps(dispatch): ICallbacks {
-    return {
-        onLoad: (nextParams) => {
-            dispatch(saveParams(nextParams));
-        },
-        onLocationListen: (nextParams) => {
-            dispatch(saveParams(nextParams));
-        },
-        onResizeViewport: (width, height) => {
-            dispatch(changeViewportDimensions(width, height));
-        },
-        onArrowNavigate: (nextParams) => {
-            dispatch(saveParams(nextParams));
-            dispatch(toggleScrollAnimation(true));
-        }
-    };
-}
-
-export const HomeFromStore = connect(
-    mapStateToProps, mapDispatchToProps
-)(Home);

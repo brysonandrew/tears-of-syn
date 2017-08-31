@@ -1,36 +1,21 @@
-import { toPath } from '../../../helpers/toPath';
-import { IDictionary, IPortfolioProject } from '../../../models';
+import { toPath } from '../../helpers/toPath';
+import { IDictionary, IPage } from '../../models/models';
 
-function PortfolioProject(name, date, photoNumber, link) {
+function PortfolioProject(name) {
     this.name = name;
     this.path = toPath(this.name);
-    this.link = link;
-    this.imagePaths = Array.apply(null, new Array(photoNumber)).map((_, i) => `/images/Projects/${this.path}/${i}.png`);
-    this.date = date;
 }
 
-export const portfolioProjectList: IPortfolioProject[] = [
+export const pageList: IPage[] = [
     new PortfolioProject(
-        "Porizi",
-        "2016",
-        3,
-        "http://www.porizi.com/"
+        "Hello"
     ),
     new PortfolioProject(
-        "Coworkz",
-        "2017",
-        3,
-        "https://cb-coworking.herokuapp.com"
-    ),
-    new PortfolioProject(
-        "Gulumjan Consulting",
-        "2017",
-        1,
-        "http://www.gulumjan-consulting.de/"
+        "World"
     )
 ];
 
-export const portfolioProjects: IDictionary<IPortfolioProject> = portfolioProjectList.reduce((acc, curr) => {
+export const pages: IDictionary<IPage> = pageList.reduce((acc, curr) => {
     acc[toPath(curr.name)] = curr;
     return acc;
 }, {});
