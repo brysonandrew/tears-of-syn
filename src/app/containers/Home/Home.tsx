@@ -5,9 +5,9 @@ import { browserHistory } from 'react-router';
 import { ScreenSaver } from '../../widgets/ScreenSaver';
 import { toParams } from "../../../data/helpers/toParams";
 import { inject, observer } from 'mobx-react';
+import { computed } from 'mobx';
 import HomeStore from '../../../mobx/stores/HomeStore';
-
-interface IProps {}
+import { colors } from '../../../data/themeOptions';
 
 interface IState {
     isMounted: boolean
@@ -26,6 +26,21 @@ export class Home extends React.Component<IProps, IState> {
     home;
     isIdle = true;
     isFirstRender = true;
+
+    @computed public get styles(): any {
+        return {
+            home: {
+                position: "relative",
+                background: colors.blk,
+                overflow: "hidden"
+            },
+            home__pages: {
+                opacity: this.state.isMounted ? 1 : 0,
+                filter: this.state.isMounted ? "none" : "blur(10px)",
+                transition: "opacity 1600ms, filter 1600ms"
+            }
+        };
+    }
 
     constructor(props?: any, context?: any) {
         super(props, context);
@@ -110,25 +125,10 @@ export class Home extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isMounted } = this.state;
-
-        console.log(this.props.store.savedParams.get("activePagePath"));
-        const styles = {
-            home: {
-                position: "relative",
-                background: "#eeeeee",
-                overflow: "hidden"
-            },
-            home__pages: {
-                opacity: isMounted ? 1 : 0,
-                filter: isMounted ? "none" : "blur(10px)",
-                transition: "opacity 1600ms, filter 1600ms"
-            }
-        } as any;
-
         return (
-            <div style={ styles.home }
+            <div style={ this.styles.home }
                  ref={el => el ? (this.home = el) : null}>
-                <div style={ styles.home__pages }>
+                <div style={ this.styles.home__pages }>
                     <Pages/>
                 </div>
                 {!isMounted

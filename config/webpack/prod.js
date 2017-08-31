@@ -12,7 +12,7 @@ var config = {
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
+    modules: [path.resolve(__dirname), 'node_modules', 'app'],
   },
 
   entry: {
@@ -22,12 +22,7 @@ var config = {
       'react',
       'react-dom',
       'react-router',
-      'react-helmet',
-      'react-redux',
-      'react-router-redux',
-      'redux',
-      'redux-connect',
-      'redux-thunk'
+      'react-helmet'
     ]
   },
 
@@ -45,7 +40,7 @@ var config = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'react-hot-loader!awesome-typescript-loader'
+        loader: 'awesome-typescript-loader'
       },
       {
         test: /\.jsx$/,

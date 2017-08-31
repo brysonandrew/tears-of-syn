@@ -25,6 +25,10 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         this.mountTimeout = setTimeout(() => this.setState({ isMounted: true }), 0);
     }
 
+    componentWillUnmount() {
+        clearTimeout(this.mountTimeout);
+    }
+
     render(): JSX.Element {
         const { isMounted } = this.state;
         const { isFirstRender } = this.props;

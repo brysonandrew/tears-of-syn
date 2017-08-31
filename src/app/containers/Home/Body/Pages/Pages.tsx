@@ -2,6 +2,8 @@ import * as React from 'react';
 import { PagesInner } from './PagesInner';
 import { inject, observer } from 'mobx-react';
 import HomeStore from '../../../../../mobx/stores/HomeStore';
+import { computed } from 'mobx';
+import { colors } from '../../../../../data/themeOptions';
 
 interface IProps {
     store?: HomeStore<string>
@@ -16,6 +18,19 @@ interface IState {
 export class Pages extends React.Component<IProps, IState> {
 
     timerId;
+
+    @computed public get styles(): any {
+        const { isMounted } = this.state;
+        return {
+            pages: {
+                position: "relative",
+                zIndex: 2,
+                opacity: isMounted ? 1 : 0,
+                filter: isMounted ? "none" : "blur(10px)",
+                transition: "opacity 1600ms, filter 1600ms"
+            }
+        };
+    }
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -39,21 +54,9 @@ export class Pages extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        const {
-        } = this.props;
-        const { isMounted } = this.state;
 
-        const styles = {
-            pages: {
-                position: "relative",
-                zIndex: 2,
-                opacity: isMounted ? 1 : 0,
-                filter: isMounted ? "none" : "blur(10px)",
-                transition: "opacity 1600ms, filter 1600ms"
-            }
-        } as any;
         return (
-            <div style={ styles.pages}>
+            <div style={ this.styles.pages}>
                 <PagesInner/>
             </div>
         );
