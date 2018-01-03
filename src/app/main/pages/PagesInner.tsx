@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import { IDictionary } from "../../../../../data/models/models";
-import { MotionScroll } from "../../../../widgets/MotionScroll/MotionScroll";
-import { Page } from "./Page/Page";
-import { pageList } from '../../../../../data/content/pages/pages';
+import { IDictionary } from "../../../data/models/models";
+import { MotionScroll } from "../../widgets/MotionScroll/MotionScroll";
+import { Page } from "./Page";
+import { pageList } from '../../../data/pages';
 import { inject, observer } from 'mobx-react';
-import HomeStore from '../../../../../mobx/stores/HomeStore';
+import HomeStore from '../../../mobx/stores/HomeStore';
 import {computed, observable} from 'mobx';
 
 interface IProps {

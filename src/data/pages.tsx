@@ -1,5 +1,5 @@
-import { toPath } from '../../helpers/toPath';
-import { IDictionary, IPage } from '../../models/models';
+import { toPath } from './helpers/toPath';
+import { IDictionary, IPage } from './models/models';
 
 function PortfolioProject(name) {
     this.name = name;

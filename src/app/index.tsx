@@ -1,4 +1,4 @@
-const appConfig = require('../../../../config/main.js');
+const appConfig = require('../../config/main.js');
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
@@ -27,3 +27,6 @@ class App extends React.Component<any, any> {
 }
 
 export { App }
+
+export { Html } from 'html';
+export { Home } from './main';

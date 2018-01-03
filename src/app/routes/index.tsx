@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import { pageList } from '../../data/content/pages/pages';
-import { App } from '../containers/App/index';
-import { Home } from '../containers/Home/Home';
+import { pageList } from '../../data/pages';
+import { App } from '../index';
+import { Home } from '../main/index';
 
 export default (
   <Route path="/" component={App}>

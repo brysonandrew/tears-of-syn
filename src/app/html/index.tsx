@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import * as serialize from 'serialize-javascript';
-import HomeStore from '../../../mobx/stores/HomeStore';
+import HomeStore from '../../mobx/stores/HomeStore';
 
 interface IHtmlProps {
   manifest?: any

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import createHistory from 'history/createBrowserHistory';
-import { Pages } from './Body/Pages/Pages';
+import { Pages } from './pages/Pages';
 import { browserHistory } from 'react-router';
-import { ScreenSaver } from '../../widgets/ScreenSaver';
-import { toParams } from "../../../data/helpers/toParams";
+import { ScreenSaver } from '../widgets/ScreenSaver';
+import { toParams } from "../../data/helpers/toParams";
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
-import HomeStore from '../../../mobx/stores/HomeStore';
-import { colors } from '../../../data/themeOptions';
+import HomeStore from '../../mobx/stores/HomeStore';
+import { colors } from '../../data/themeOptions';
 
 interface IState {
     isMounted: boolean

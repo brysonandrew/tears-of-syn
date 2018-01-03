@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import { IParams, IPage } from "../../../../../../data/models/models";
+import { IParams, IPage } from "../../../data/models/models";
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import HomeStore from '../../../../../../mobx/stores/HomeStore';
+import HomeStore from '../../../mobx/stores/HomeStore';
 
 interface IProps {
     index: number

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { PagesInner } from './PagesInner';
 import { inject, observer } from 'mobx-react';
-import HomeStore from '../../../../../mobx/stores/HomeStore';
+import HomeStore from '../../../mobx/stores/HomeStore';
 import { computed } from 'mobx';
-import { colors } from '../../../../../data/themeOptions';
+import { colors } from '../../../data/themeOptions';
 
 interface IProps {
     store?: HomeStore<string>
