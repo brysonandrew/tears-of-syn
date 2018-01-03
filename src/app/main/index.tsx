@@ -1,20 +1,19 @@
 import * as React from 'react';
+import {browserHistory} from 'react-router';
 import createHistory from 'history/createBrowserHistory';
 import { Pages } from './pages/Pages';
-import { browserHistory } from 'react-router';
 import { ScreenSaver } from '../widgets/ScreenSaver';
 import { toParams } from "../../data/helpers/toParams";
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
-import HomeStore from '../../mobx/stores/HomeStore';
-import { colors } from '../../data/themeOptions';
+import Store from '../../data/Store';
 
 interface IState {
     isMounted: boolean
 }
 
 interface IProps {
-    store?: HomeStore<string>
+    store?: Store
 }
 
 @inject('store')
@@ -29,12 +28,17 @@ export class Home extends React.Component<IProps, IState> {
 
     @computed public get styles(): any {
         return {
-            home: {
+            p: {
                 position: "relative",
-                background: colors.blk,
                 overflow: "hidden"
             },
-            home__pages: {
+            heading: {
+                position: "fixed",
+                top: 0,
+                left: "50%",
+                transform: "translate(-50%)"
+            },
+            pages: {
                 opacity: this.state.isMounted ? 1 : 0,
                 filter: this.state.isMounted ? "none" : "blur(10px)",
                 transition: "opacity 1600ms, filter 1600ms"
@@ -51,7 +55,6 @@ export class Home extends React.Component<IProps, IState> {
 
     componentDidMount() {
         const { onResizeViewport, onLocationListen, onLoad } = this.props.store;
-        console.log("mounted");
         this.isFirstRender = false;
         // reset window pos
         window.scroll(0, 0);
@@ -126,9 +129,14 @@ export class Home extends React.Component<IProps, IState> {
     render(): JSX.Element {
         const { isMounted } = this.state;
         return (
-            <div style={ this.styles.home }
-                 ref={el => el ? (this.home = el) : null}>
-                <div style={ this.styles.home__pages }>
+            <div
+                style={ this.styles.p }
+                ref={el => el ? (this.home = el) : null}
+            >
+                <h1 style={ this.styles.heading }>
+                    Tears of Syn
+                </h1>
+                <div style={ this.styles.pages }>
                     <Pages/>
                 </div>
                 {!isMounted

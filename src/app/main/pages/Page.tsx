@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import { IParams, IPage } from "../../../data/models/models";
+import { IParams, IPage } from "../../../data/models";
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import HomeStore from '../../../mobx/stores/HomeStore';
+import Store from '../../../data/Store';
 
 interface IProps {
     index: number
     page: IPage
-    store?: HomeStore<string>
+    store?: Store
     previewWidth?: number
     offsetTop?: number
 }
@@ -30,17 +30,20 @@ export class Page extends React.Component<IProps, IState> {
 
     @computed public get styles(): any {
         return {
-            page: {
-                position: "relative",
-                height: this.props.store.height,
-                width: "100%",
-                zIndex: 0
-            },
-            page__inner: {
+            p: {
+                id: "page",
                 position: "absolute",
                 top: "50%",
-                tranform: "translate(-50%)",
-                fontSize: 80
+                width: "100%",
+                transform: "translateY(-50%)",
+                fontSize: 18,
+                cursor: "pointer"
+            },
+            paragraph: {
+                margin: "4px 0"
+            },
+            line: {
+                margin: "2px 0"
             }
         };
     }
@@ -82,10 +85,26 @@ export class Page extends React.Component<IProps, IState> {
         const { page } = this.props;
 
         return (
-            <div style={ this.styles.page }
-                onClick={this.handleClick}>
-                <div style={ this.styles.page__inner }>
-                    {page.name}
+            <div
+                style={ this.styles.p }
+                onClick={this.handleClick}
+            >
+                <h2>{page.name}</h2>
+                <div style={ this.styles.paragraph }>
+                    {page.paragraphs.map((paragraph, paragraphIndex) =>
+                        <div
+                            key={`paragraph-${paragraphIndex}`}
+                        >
+                            {paragraph.map((line, lineIndex) =>
+                                <p
+                                    key={`line-${lineIndex}`}
+                                    style={ this.styles.line }
+                                >
+                                    {line}
+                                </p>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
         );

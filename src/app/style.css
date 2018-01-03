@@ -1,13 +1,13 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Palanquin Dark', 'arial', sans-serif;
+  font-family: 'Abel', 'arial', sans-serif;
   -webkit-appearance: none;
 }
 
 body {
-  background: #fafafa;
-  color: #311B92;
+  background: #FFFFFF;
+  color: #000000;
 }
 
 button, input, a {

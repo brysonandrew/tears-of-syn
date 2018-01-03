@@ -1,8 +1,8 @@
 import { observable, action } from 'mobx';
-import { IParams } from '../../data/models/models';
-import { buildMap } from '../../data/helpers/buildMap';
+import { IParams } from './models';
+import { buildMap } from './helpers/buildMap';
 
-export default class HomeStore<Item> {
+export default class Store {
 
     // @observable items: Array<Item> = [];
     @observable isAnimating: boolean;
@@ -14,8 +14,8 @@ export default class HomeStore<Item> {
     @observable height: number;
     @observable savedParams: Map<string, string>;
 
-    constructor(initialState?: { homeStore: HomeStore<Item> }) {
-        // this.items = initialState && initialState.homeStore && initialState.homeStore.items ? initialState.homeStore.items : [];
+    constructor(initialState?: { Store: Store }) {
+        // this.items = initialState && initialState.Store && initialState.Store.items ? initialState.Store.items : [];
         this.isAnimating = false;
         this.isWheel = false;
         this.width = 0;

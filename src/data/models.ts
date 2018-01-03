@@ -9,4 +9,8 @@ export interface IParams {
 export interface IPage {
     name: string
     path: string
+    paragraphs: string[][]
+}
+export interface IInlineStyles {
+    [key: string]: IDictionary<string | number>
 }

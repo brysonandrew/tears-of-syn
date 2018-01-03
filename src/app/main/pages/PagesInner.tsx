@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
-import { IDictionary } from "../../../data/models/models";
+import {browserHistory} from 'react-router';
+import { IDictionary } from "../../../data/models";
 import { MotionScroll } from "../../widgets/MotionScroll/MotionScroll";
 import { Page } from "./Page";
-import { pageList } from '../../../data/pages';
+import {PAGE_LIST} from '../../../data/pages';
 import { inject, observer } from 'mobx-react';
-import HomeStore from '../../../mobx/stores/HomeStore';
+import Store from '../../../data/Store';
 import {computed, observable} from 'mobx';
 
 interface IProps {
-    store?: HomeStore<string>
+    store?: Store
 }
 
 interface IState {
@@ -26,12 +26,12 @@ export class PagesInner extends React.Component<IProps, IState> {
     isWheelRecorded = false;
 
     @computed public get projectOffsetList(): number[] {
-        return pageList.map((project, i) => i * this.props.store.width);
+        return PAGE_LIST.map((project, i) => i * this.props.store.width);
     }
 
     @computed public get projectOffsets(): IDictionary<number> {
         return this.projectOffsetList.reduce((acc, curr, i) => {
-            acc[pageList[i].path] = curr;
+            acc[PAGE_LIST[i].path] = curr;
             return acc;
         }, {});
     }
@@ -41,7 +41,7 @@ export class PagesInner extends React.Component<IProps, IState> {
 
         return !!savedParams.get("activePagePath")
             ?   savedParams.get("activePagePath")
-            :   pageList[0].path;
+            :   PAGE_LIST[0].path;
     }
 
     @computed public get widthMarginFactor(): any {
@@ -66,22 +66,23 @@ export class PagesInner extends React.Component<IProps, IState> {
         const { height, width, isMobile, isTablet, isLaptop } = this.props.store;
         const { docScroll } = this.state;
 
-        const scrollHeight = width * (pageList.length - 1);
+        const scrollHeight = width * (PAGE_LIST.length - 1);
         const widthMarginFactor = PagesInner.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
         const adjustedScroll = docScroll - (widthMarginFactor * docScroll * 2);
 
         return {
-            pagesInner: {
+            p: {
+                id: "pages inner",
                 position: "relative",
                 height: height + scrollHeight
             },
-            pagesInner__inner: {
+            inner: {
                 position: "fixed",
                 left: this.widthMargin,
                 top: 0,
-                width: pageList.length * this.adjustedWidth
+                width: PAGE_LIST.length * this.adjustedWidth
             },
-            pagesInner__page: {
+            page: {
                 display: "inline-block",
                 position: "relative",
                 verticalAlign: "top",
@@ -147,8 +148,9 @@ export class PagesInner extends React.Component<IProps, IState> {
                                 ?   PagesInnerScrolledPastOffsets.length - 1
                                 :   -1;
 
-        if (currentIndex > -1 && pageList[currentIndex].path !== savedParams.get("activePagePath")) {
-            const nextPath = `/${pageList[currentIndex].path}`;
+        if (currentIndex > -1 && PAGE_LIST[currentIndex].path !== savedParams.get("activePagePath")) {
+            const nextPath = `/${PAGE_LIST[currentIndex].path}`;
+
             browserHistory.push(nextPath);
         }
     };
@@ -168,17 +170,19 @@ export class PagesInner extends React.Component<IProps, IState> {
         const { onAnimationEnd, isAnimating } = this.props.store;
 
         return (
-            <div style={ this.styles.pagesInner }>
-                <div style={ this.styles.pagesInner__inner }>
-                    {!!this.projectOffsets && <MotionScroll
-                                                    docScroll={docScroll}
-                                                    isAnimating={isAnimating}
-                                                    scrollTarget={this.projectOffsets[this.activePagePath]}
-                                                    onRest={onAnimationEnd}
-                                                />}
-                    {pageList.map((page, i) =>
+            <div style={ this.styles.p }>
+                <div style={ this.styles.inner }>
+                    {!!this.projectOffsets
+                        ?   <MotionScroll
+                                docScroll={docScroll}
+                                isAnimating={isAnimating}
+                                scrollTarget={this.projectOffsets[this.activePagePath]}
+                                onRest={onAnimationEnd}
+                            />
+                        :   null}
+                    {PAGE_LIST.map((page, i) =>
                         <div key={`page-${i}`}
-                             style={ this.styles.pagesInner__page }>
+                             style={ this.styles.page }>
                             <Page
                                 index={i}
                                 page={page}

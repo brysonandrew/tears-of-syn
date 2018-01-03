@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import * as serialize from 'serialize-javascript';
-import HomeStore from '../../mobx/stores/HomeStore';
+import Store from '../../data/Store';
 
 interface IHtmlProps {
   manifest?: any
   markup?: string
-  store?: HomeStore<string>
+  store?: Store
 }
 
 class Html extends React.Component<IHtmlProps, {}> {
@@ -52,7 +52,7 @@ class Html extends React.Component<IHtmlProps, {}> {
                     <meta name="author" content="Andrew Bryson" />
                     <meta property="og:image" content="http://codebro.io/images/logo.png"/>
                     <meta property="og:image:secure_url" content="http://codebro.io/images/logo.png"/>
-                    <link href="https://fonts.googleapis.com/css?family=Palanquin+Dark" rel="stylesheet" />
+                    <link href="https://fonts.googleapis.com/css?family=Palanquin+Dark|Abel" rel="stylesheet" />
                     <link rel="shortcut icon" href="/favicon.ico" />
                 </head>
                 <body>

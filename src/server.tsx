@@ -13,7 +13,7 @@ import { MobxAsyncConnect, loadOnServer, store as mobxAsyncConnect } from 'mobx-
 import routes from './app/routes';
 
 import { Html } from './app';
-import {default as HomeStore} from './mobx/stores/HomeStore';
+import {default as Store} from './data/Store';
 const manifest = require('../build/manifest.json');
 
 const express = require('express');
@@ -54,7 +54,7 @@ app.use('/images', express.static('./assets/images'));
 app.get('*', (req, res) => {
     const location = req.url;
     const history = createMemoryHistory(req.originalUrl);
-    const homeStore = new HomeStore();
+    const appStore = new Store();
 
     match({ history, routes, location },
     (error, redirectLocation, renderProps) => {
@@ -64,11 +64,11 @@ app.get('*', (req, res) => {
         res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
         const markup = ReactDOMServer.renderToString(
-            <Provider store={homeStore} key="provider">
+            <Provider store={appStore} key="provider">
                 <RouterContext {...renderProps} />
             </Provider>,
         );
-        res.status(200).send(renderHTML(markup, homeStore));
+        res.status(200).send(renderHTML(markup, appStore));
         } else {
             res.status(404).send('Not Found?');
         }

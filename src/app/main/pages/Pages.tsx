@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { PagesInner } from './PagesInner';
 import { inject, observer } from 'mobx-react';
-import HomeStore from '../../../mobx/stores/HomeStore';
+import Store from '../../../data/Store';
 import { computed } from 'mobx';
-import { colors } from '../../../data/themeOptions';
 
 interface IProps {
-    store?: HomeStore<string>
+    store?: Store
 }
 
 interface IState {
@@ -22,7 +21,7 @@ export class Pages extends React.Component<IProps, IState> {
     @computed public get styles(): any {
         const { isMounted } = this.state;
         return {
-            pages: {
+            p: {
                 position: "relative",
                 zIndex: 2,
                 opacity: isMounted ? 1 : 0,
@@ -56,7 +55,7 @@ export class Pages extends React.Component<IProps, IState> {
     render(): JSX.Element {
 
         return (
-            <div style={ this.styles.pages}>
+            <div style={ this.styles.p}>
                 <PagesInner/>
             </div>
         );
