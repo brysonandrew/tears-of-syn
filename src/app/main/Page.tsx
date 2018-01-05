@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import { IParams, IPage } from "../../../data/models";
+import { IParams, IPage } from "../../data/models";
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import Store from '../../../data/Store';
+import Store from '../../data/Store';
 
 interface IProps {
     index: number
@@ -40,9 +40,11 @@ export class Page extends React.Component<IProps, IState> {
                 cursor: "pointer"
             },
             paragraph: {
-                margin: "4px 0"
+                id: "page paragraph",
+                margin: "12px 0"
             },
             line: {
+                id: "page line",
                 margin: "2px 0"
             }
         };
@@ -94,6 +96,7 @@ export class Page extends React.Component<IProps, IState> {
                     {page.paragraphs.map((paragraph, paragraphIndex) =>
                         <div
                             key={`paragraph-${paragraphIndex}`}
+                            style={ this.styles.paragraph }
                         >
                             {paragraph.map((line, lineIndex) =>
                                 <p

@@ -9,13 +9,13 @@ var config = {
   // This part goes to React-Helmet for Head of our HTML
   app: {
     head: {
-      title: 'Freelance Web Developer',
-      titleTemplate: 'Code Bro | %s',
+      title: 'Acoustic music',
+      titleTemplate: 'Tears of Syn | %s',
       meta: [
         { charset: 'utf-8' },
         { 'http-equiv': 'x-ua-compatible', content: 'ie=edge' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Building websites in React, Typescript, THREE.js and Node.js.' },
+        { name: 'description', content: 'I want to take you where angels know your name' },
       ]
     }
   }

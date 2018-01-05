@@ -1,12 +1,15 @@
 import * as React from 'react';
 import {browserHistory} from 'react-router';
 import createHistory from 'history/createBrowserHistory';
-import { Pages } from './pages/Pages';
+import { Pages } from './Pages';
 import { ScreenSaver } from '../widgets/ScreenSaver';
 import { toParams } from "../../data/helpers/toParams";
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
 import Store from '../../data/Store';
+import {colors} from '../../data/themeOptions';
+import {PAGE_LIST} from '../../data/pages';
+import {Background} from '../widgets/Background';
 
 interface IState {
     isMounted: boolean
@@ -36,7 +39,8 @@ export class Home extends React.Component<IProps, IState> {
                 position: "fixed",
                 top: 0,
                 left: "50%",
-                transform: "translate(-50%)"
+                transform: "translate(-50%)",
+                zIndex: 2
             },
             pages: {
                 opacity: this.state.isMounted ? 1 : 0,
@@ -128,6 +132,8 @@ export class Home extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isMounted } = this.state;
+        const { width, height, adjustedWidth, docScroll } = this.props.store;
+
         return (
             <div
                 style={ this.styles.p }
@@ -136,6 +142,12 @@ export class Home extends React.Component<IProps, IState> {
                 <h1 style={ this.styles.heading }>
                     Tears of Syn
                 </h1>
+                <Background
+                    width={width}
+                    height={height}
+                    adjustedWidth={adjustedWidth}
+                    docScroll={docScroll}
+                />
                 <div style={ this.styles.pages }>
                     <Pages/>
                 </div>
