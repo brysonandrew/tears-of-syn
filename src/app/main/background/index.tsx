@@ -7,6 +7,7 @@ import { CenteredText } from '../../widgets';
 import {Wall} from './wall';
 import {createArrayOf} from '../../utils/array';
 import {Candle} from './candle';
+import {AirParticles} from './air-particles';
 
 const NUMBER_OF_CANDLES = 8;
 const RADIUS = 25;
@@ -36,6 +37,7 @@ export class Background extends React.Component<IProps, IState> {
     light;
     candleInitArray: number[] = createArrayOf(Math.random() * RADIUS / NUMBER_OF_CANDLES, NUMBER_OF_CANDLES);
     candles: Candle[] = [];
+    airParticles = new AirParticles();
     wall = new Wall();
 
     public constructor(props?: any, context?: any) {
@@ -89,7 +91,6 @@ export class Background extends React.Component<IProps, IState> {
     initGL() {
         this.initRenderer();
 
-        this.initAssets();
         this.initLighting();
         this.initScene();
 
@@ -129,12 +130,10 @@ export class Background extends React.Component<IProps, IState> {
         this.light = new THREE.AmbientLight( 0xFFFFFF, 0.25 );
     }
 
-    initAssets() {
-        this.wall.init();
-    }
-
     initScene() {
         this.scene = new THREE.Scene();
+        this.wall.init();
+        this.scene.add(this.airParticles.render());
         this.candleInitArray.forEach((random, i) => {
             let candle = new Candle();
             candle["random"] = random;
@@ -151,6 +150,7 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     renderMotion() {
+        this.airParticles.animate(this.props.docScroll);
         this.candles.forEach((candle, i) => {
             const scrollDiff = Math.sin(this.props.docScroll * 0.0001) * candle["random"];
             candle.move("x", Math.cos(Math.PI * (i / (NUMBER_OF_CANDLES - 1))) * -RADIUS + scrollDiff);

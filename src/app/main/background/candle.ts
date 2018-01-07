@@ -18,6 +18,7 @@ export const WICK = {
 const GRAVITY = 0.025;
 const MAX_FLAME_LIFE = 0.15;
 const DEATH_RATE = 0.006;
+const COLOR = 0xFFFFFF;
 
 export class Candle {
 
@@ -46,7 +47,7 @@ export class Candle {
     }
 
     createGlow() {
-        let light = new THREE.PointLight( 0xFFFFFF, 0.2, 0, 2 );
+        let light = new THREE.PointLight( COLOR, 0.2, 0, 2 );
         light.position.y = WICK.height * 0.5;
 
         this.wick.add(light);
@@ -88,7 +89,7 @@ export class Candle {
         const material = new THREE.ShaderMaterial( {
             uniforms: {
                 amplitude: { value: 1.0 },
-                color:     { value: new THREE.Color( 0xffffff ) },
+                color:     { value: new THREE.Color( COLOR ) },
                 texture:   { value: new THREE.TextureLoader().load( this.particleImagePath ) },
                 opacity: 0.5
             },
@@ -108,20 +109,11 @@ export class Candle {
         this.flame.add(cluster);
     }
 
-    burn() {
+    animate() {
         this.addCluster();
 
         this.flame.children.forEach((spark, i) => {
-            // spark.position.x += Math.cos(spark["life"]);
-            const alphas = spark.geometry.attributes.alpha;
-            alphas.needsUpdate = true; // important!
-
-            const count = alphas.count;
-            for ( let i = 0; i < count; i ++ ) {
-                alphas.array[ i ] = spark["life"] / MAX_FLAME_LIFE;
-            }
             spark.position.y += spark["life"] - GRAVITY;
-            // spark.position.z += Math.cos(spark["life"]);
 
             if (spark["life"] > MAX_FLAME_LIFE * this.flameSize) {
                 this.flame.children.splice(i, 1);
@@ -138,12 +130,6 @@ export class Candle {
 
     move(prop, inc) {
         this.main.position[prop] = inc;
-    }
-
-    animate() {
-        // this.main.rotation.x += 0.01;
-        // this.main.rotation.z += 0.01;
-        this.burn();
     }
 
     render(index: number) {

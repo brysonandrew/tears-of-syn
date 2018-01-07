@@ -39,13 +39,23 @@ export class Page extends React.Component<IProps, IState> {
                 fontSize: 18,
                 cursor: "pointer"
             },
+            heading: {
+                // color: "#e53935"
+            },
             paragraph: {
                 id: "page paragraph",
-                margin: "12px 0"
+                margin: "24px 0"
             },
             line: {
                 id: "page line",
-                margin: "2px 0"
+                margin: "2px 0",
+                lineHeight: 1.2
+            },
+            underLine: {
+                display: "block",
+                border: "none",
+                height: 1,
+                background: "-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(transparent))"
             }
         };
     }
@@ -91,7 +101,9 @@ export class Page extends React.Component<IProps, IState> {
                 style={ this.styles.p }
                 onClick={this.handleClick}
             >
-                <h2>{page.name}</h2>
+                <div style={ this.styles.heading }>
+                    <h2>{page.name}</h2>
+                </div>
                 <div style={ this.styles.paragraph }>
                     {page.paragraphs.map((paragraph, paragraphIndex) =>
                         <div
@@ -104,6 +116,7 @@ export class Page extends React.Component<IProps, IState> {
                                     style={ this.styles.line }
                                 >
                                     {line}
+                                    <span style={ this.styles.underLine }/>
                                 </p>
                             )}
                         </div>

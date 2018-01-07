@@ -4,7 +4,7 @@ const CONFIGS = {
     width: 1000,
     height: 500,
     z: -5,
-    color: 0xFFFFFF
+    color: 0x1A237E
 };
 
 export class Wall {
@@ -13,7 +13,7 @@ export class Wall {
 
     init() {
         const geometry = new THREE.PlaneGeometry( CONFIGS.width, CONFIGS.height );
-        const material = new THREE.MeshPhongMaterial( { color: CONFIGS.color, side: THREE.DoubleSide } );
+        const material = new THREE.MeshPhongMaterial( { emissive: CONFIGS.color, side: THREE.DoubleSide } );
         this.wall = new THREE.Mesh( geometry, material );
         this.wall.position.z = CONFIGS.z;
     }

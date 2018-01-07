@@ -10,7 +10,7 @@ var config = {
   app: {
     head: {
       title: 'Acoustic music',
-      titleTemplate: 'Tears of Syn | %s',
+      titleTemplate: 'Atelier of Kos | %s',
       meta: [
         { charset: 'utf-8' },
         { 'http-equiv': 'x-ua-compatible', content: 'ie=edge' },

@@ -36,10 +36,14 @@ export class Home extends React.Component<IProps, IState> {
             },
             heading: {
                 position: "fixed",
-                top: 0,
-                left: "50%",
-                transform: "translate(-50%)",
+                top: 2,
+                left: 8,
                 zIndex: 2
+            },
+            logo: {
+                height: 80,
+                width: "auto",
+                margin: "4px 0"
             },
             pages: {
                 position: "relative",
@@ -140,9 +144,10 @@ export class Home extends React.Component<IProps, IState> {
                 style={ this.styles.p }
                 ref={el => el ? (this.home = el) : null}
             >
-                <h1 style={ this.styles.heading }>
-                    Tears of Syn
-                </h1>
+                <div style={ this.styles.heading }>
+                    <h1>Atelier of Kos</h1>
+                    <img style={ this.styles.logo } src="/images/logo-white.svg"/>
+                </div>
                 {renderDefinedTrue(this.home, () =>
                     <Background
                         width={width}
