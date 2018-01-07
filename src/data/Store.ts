@@ -120,7 +120,6 @@ export default class Store {
 
     @action
     public onLoad = (nextParams: IParams) => {
-        console.log(nextParams);
         this.savedParams = buildMap(nextParams);
     };
 }

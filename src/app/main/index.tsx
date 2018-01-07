@@ -1,15 +1,14 @@
 import * as React from 'react';
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
+import { inject, observer } from 'mobx-react';
+import { computed } from 'mobx';
 import createHistory from 'history/createBrowserHistory';
 import { Pages } from './Pages';
 import { ScreenSaver } from '../widgets/ScreenSaver';
 import { toParams } from "../../data/helpers/toParams";
-import { inject, observer } from 'mobx-react';
-import { computed } from 'mobx';
 import Store from '../../data/Store';
-import {colors} from '../../data/themeOptions';
-import {PAGE_LIST} from '../../data/pages';
-import {Background} from '../widgets/Background';
+import {Background} from './background';
+import {renderDefinedTrue} from '../utils/react';
 
 interface IState {
     isMounted: boolean
@@ -43,9 +42,11 @@ export class Home extends React.Component<IProps, IState> {
                 zIndex: 2
             },
             pages: {
+                position: "relative",
                 opacity: this.state.isMounted ? 1 : 0,
                 filter: this.state.isMounted ? "none" : "blur(10px)",
-                transition: "opacity 1600ms, filter 1600ms"
+                transition: "opacity 1600ms, filter 1600ms",
+                zIndex: 2
             }
         };
     }
@@ -142,12 +143,14 @@ export class Home extends React.Component<IProps, IState> {
                 <h1 style={ this.styles.heading }>
                     Tears of Syn
                 </h1>
-                <Background
-                    width={width}
-                    height={height}
-                    adjustedWidth={adjustedWidth}
-                    docScroll={docScroll}
-                />
+                {renderDefinedTrue(this.home, () =>
+                    <Background
+                        width={width}
+                        height={height}
+                        textBoundary={adjustedWidth}
+                        parentEl={this.home}
+                        docScroll={docScroll}
+                    />)}
                 <div style={ this.styles.pages }>
                     <Pages/>
                 </div>

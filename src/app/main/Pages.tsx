@@ -71,9 +71,9 @@ export class Pages extends React.Component<IProps, IState> {
 
     static calcWidthMarginFactor(isMobile, isTablet, isLaptop) {
         return  isMobile
-                    ?   0
+                    ?   -0.25
                     :   isTablet
-                            ?   0.0675
+                            ?   -0.125
                             :   isLaptop
                                     ?   0.125
                                     :   0.25;
